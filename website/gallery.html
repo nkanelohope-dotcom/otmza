@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gallery of On The Move ZA services — cleaning, packing, moving and home setup in action.">
+  <title>Gallery | On The Move ZA</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <img src="images/logo.jpeg" alt="On The Move ZA Logo">
+          <div class="logo-text">
+            ON THE MOVE
+            <span>FROM PACKED TO PERFECTLY PLACED</span>
+          </div>
+        </a>
+        <button class="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="ceo.html">Our Director</a>
+          <a href="services.html">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="partners.html">Partners</a>
+          <a href="gallery.html" class="active">Gallery</a>
+          <a href="contact.html">Contact</a>
+          <a href="book.html" class="nav-cta">Book Now</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>Gallery</h1>
+      <p>Cleaner spaces. Happier places.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" id="dynamic-gallery">
+      <p style="text-align:center;color:#6b7280">Loading gallery...</p>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="container">
+      <h2>See the Difference for Yourself</h2>
+      <p>Book a service and experience professional results.</p>
+      <a href="book.html" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Book Now</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/logo2.jpeg" alt="On The Move ZA">
+          <p>Professional cleaning, packing, moving and home setup services. From packed to perfectly placed.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="partners.html">Estate Partners</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Deep Cleaning</a></li>
+            <li><a href="services.html">Move In/Out</a></li>
+            <li><a href="services.html">Weekly Maid</a></li>
+            <li><a href="services.html">Carpet &amp; Upholstery</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><i class="fas fa-phone"></i> 074 353 8569 </li>
+            <li><i class="fab fa-whatsapp"></i> 074 353 8569</li>
+            <li><i class="fas fa-envelope"></i> onthemovezao@gmail.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> Johannesburg, Pretoria and Surrounding</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 On The Move ZA. All rights reserved. | From Packed to Perfectly Placed</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/27743538569" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">&#10094;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next">&#10095;</button>
+  </div>
+
+  <script src="js/main.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      const categories = {
+        cleaning: { title: 'Cleaning', icon: 'fa-broom', description: 'Deep cleans, spring cleans, weekly maid services and post-construction cleaning.' },
+        packing: { title: 'Packing & Sorting', icon: 'fa-box-open', description: 'Careful packing, wrapping and organising of belongings.' },
+        moving: { title: 'Moving', icon: 'fa-truck-moving', description: 'Furniture, appliances and household moves by our On The Move ZA team.' },
+        events: { title: 'Events & Functions', icon: 'fa-chair', description: 'Event setup, clear-ups and delicate furniture handling.' },
+        results: { title: 'Final Results', icon: 'fa-star', description: 'The finished product — cleaned, sorted, and perfectly placed.' }
+      };
+
+      const galleryRoot = document.getElementById('dynamic-gallery');
+      const lightbox = document.getElementById('lightbox');
+      const closeBtn = document.getElementById('lightboxClose');
+      const prevBtn = document.getElementById('lightboxPrev');
+      const nextBtn = document.getElementById('lightboxNext');
+      let lightboxItems = [];
+      let lightboxIndex = 0;
+
+      function escapeHtml(value) {
+        return String(value || '').replace(/[&<>"']/g, ch => ({
+          '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+        }[ch]));
+      }
+
+      function isVideo(item) {
+        return /\.(mp4|webm)$/i.test(item.filename || item.originalName || item.url || '');
+      }
+
+      function renderGallery(items) {
+        const grouped = {};
+        Object.keys(categories).forEach(key => grouped[key] = []);
+        items.forEach(item => {
+          if (grouped[item.category]) grouped[item.category].push(item);
+        });
+
+        galleryRoot.innerHTML = Object.entries(categories).map(([key, category]) => {
+          const categoryItems = grouped[key];
+          if (!categoryItems.length) return '';
+          const cards = categoryItems.map((item, index) => {
+            const video = isVideo(item);
+            const media = video
+              ? `<video src="${escapeHtml(item.url)}" muted playsinline preload="metadata"></video><span class="play-icon"><i class="fas fa-play"></i></span>`
+              : `<img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.originalName || category.title)}" loading="lazy">`;
+            return `<div class="gallery-item ${index >= 3 ? 'extra' : ''}" style="${index >= 3 ? 'display:none' : ''}" data-gallery-index="${items.indexOf(item)}">${media}</div>`;
+          }).join('');
+
+          return `<div class="gallery-category" data-cat="${key}">
+            <h3><i class="fas ${category.icon}"></i> ${category.title}</h3>
+            <p class="cat-desc">${category.description}</p>
+            <div class="gallery-grid">${cards}</div>
+            ${categoryItems.length > 3 ? `<button class="view-more-btn" data-target="${key}">View More <i class="fas fa-chevron-down"></i></button>` : ''}
+          </div>`;
+        }).join('');
+
+        galleryRoot.querySelectorAll('.view-more-btn').forEach(button => {
+          button.addEventListener('click', function () {
+            const category = this.closest('.gallery-category');
+            const expanded = this.classList.toggle('expanded');
+            category.querySelectorAll('.gallery-item.extra').forEach(item => {
+              item.style.display = expanded ? '' : 'none';
+            });
+            this.innerHTML = expanded
+              ? 'View Less <i class="fas fa-chevron-up"></i>'
+              : 'View More <i class="fas fa-chevron-down"></i>';
+          });
+        });
+
+        galleryRoot.querySelectorAll('.gallery-item').forEach(card => {
+          card.addEventListener('click', function () {
+            const visibleCards = Array.from(galleryRoot.querySelectorAll('.gallery-item'))
+              .filter(el => el.style.display !== 'none');
+            lightboxItems = visibleCards.map(el => {
+              const media = el.querySelector('img,video');
+              return { src: media.getAttribute('src'), video: media.tagName.toLowerCase() === 'video' };
+            });
+            lightboxIndex = visibleCards.indexOf(card);
+            showLightboxItem();
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+          });
+        });
+      }
+
+      function showLightboxItem() {
+        const current = lightboxItems[lightboxIndex];
+        if (!current) return;
+        const old = document.getElementById('lightboxImg');
+        if (old) old.remove();
+
+        let media;
+        if (current.video) {
+          media = document.createElement('video');
+          media.controls = true;
+          media.autoplay = true;
+          media.muted = true;
+          media.loop = true;
+          media.playsInline = true;
+        } else {
+          media = document.createElement('img');
+          media.alt = '';
+        }
+        media.id = 'lightboxImg';
+        media.className = 'lightbox-img';
+        media.src = current.src;
+        lightbox.insertBefore(media, nextBtn);
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        const video = lightbox.querySelector('video');
+        if (video) video.pause();
+      }
+
+      function moveLightbox(direction) {
+        if (!lightboxItems.length) return;
+        lightboxIndex = (lightboxIndex + direction + lightboxItems.length) % lightboxItems.length;
+        showLightboxItem();
+      }
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+      prevBtn.addEventListener('click', e => { e.stopPropagation(); moveLightbox(-1); });
+      nextBtn.addEventListener('click', e => { e.stopPropagation(); moveLightbox(1); });
+      document.addEventListener('keydown', e => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') moveLightbox(1);
+        if (e.key === 'ArrowLeft') moveLightbox(-1);
+      });
+
+      try {
+        const response = await fetch('/api/gallery');
+        if (!response.ok) throw new Error('Gallery could not be loaded');
+        const items = await response.json();
+        renderGallery(items);
+        if (!items.length) galleryRoot.innerHTML = '<p style="text-align:center;color:#6b7280">No gallery pictures have been added yet.</p>';
+      } catch (error) {
+        console.error(error);
+        galleryRoot.innerHTML = '<p style="text-align:center;color:#b91c1c">The gallery is temporarily unavailable. Please refresh the page.</p>';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact On The Move ZA — Johannesburg & Pretoria. Phone, WhatsApp, email and social media.">
+  <title>Contact Us | On The Move ZA</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <img src="images/logo.jpeg" alt="On The Move ZA Logo">
+          <div class="logo-text">ON THE MOVE<span>FROM PACKED TO PERFECTLY PLACED</span></div>
+        </a>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="ceo.html">Our Director</a>
+          <a href="services.html">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="partners.html">Partners</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html" class="active">Contact</a>
+          <a href="book.html" class="nav-cta">Book Now</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p>We’re here to help — reach out anytime</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Get In Touch</h3>
+          <div class="contact-item"><div class="icon"><i class="fas fa-phone"></i></div><div><h4>Phone</h4><p><a href="tel:+27743538569">074 353 8569</a></p></div></div>
+          <div class="contact-item"><div class="icon"><i class="fab fa-whatsapp"></i></div><div><h4>WhatsApp</h4><p><a href="https://wa.me/27743538569" target="_blank">074 353 8569</a></p></div></div>
+          <div class="contact-item"><div class="icon"><i class="fas fa-envelope"></i></div><div><h4>Email</h4><p><a href="mailto:onthemovezao@gmail.com">onthemovezao@gmail.com</a></p></div></div>
+          <div class="contact-item"><div class="icon"><i class="fas fa-map-marker-alt"></i></div><div><h4>Service Area</h4><p>Johannesburg, Pretoria and surrounding areas</p></div></div>
+          <div class="contact-item"><div class="icon"><i class="fas fa-clock"></i></div><div><h4>Note</h4><p>R100 call-out fee for distances under 20 km</p></div></div>
+
+          <div class="social-links">
+            <a href="https://instagram.com/onthemove_sa" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com/@onthemove_za" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://facebook.com/onthemove_sa" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="mailto:onthemovezao@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h3>Send a Message</h3>
+          <form id="contact-form">
+            <div class="form-row">
+              <div class="form-group"><label for="name">Full Name *</label><input type="text" id="name" required placeholder="Your name"></div>
+              <div class="form-group"><label for="phone">Phone *</label><input type="tel" id="phone" required placeholder="Your phone number"></div>
+            </div>
+            
+            <div class="form-group">
+              <label>Services Interested In *</label>
+              <!-- Custom Multi-Select -->
+              <div class="multi-select-container" id="contact-service-multi-select">
+                <div class="multi-select-display" onclick="toggleContactDropdown()">
+                  <span class="placeholder" id="contact-service-display-text">Select services...</span>
+                  <i class="fas fa-chevron-down" style="color: var(--gray); font-size: 0.8rem;"></i>
+                </div>
+                <div class="multi-select-dropdown" id="contact-service-dropdown">
+                  <!-- Sticky Header with Save Button -->
+                  <div class="multi-select-header">
+                    <span>Select all that apply</span>
+                    <button type="button" onclick="closeContactDropdown()">Save Selection</button>
+                  </div>
+                  
+                  <div class="multi-select-list">
+                    <label class="multi-select-item"><input type="checkbox" value="Standard Cleaning" class="contact-svc-checkbox"> Standard Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Spring Cleaning" class="contact-svc-checkbox"> Spring Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Deep Cleaning" class="contact-svc-checkbox"> Deep Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Empty / Move-Out Cleaning" class="contact-svc-checkbox"> Empty / Move-Out Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Weekly Maid Service" class="contact-svc-checkbox"> Weekly Maid Service</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Carpet / Rug Cleaning" class="contact-svc-checkbox"> Carpet / Rug Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Couch Cleaning" class="contact-svc-checkbox"> Couch Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Mattress Cleaning" class="contact-svc-checkbox"> Mattress Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Packing & Moving" class="contact-svc-checkbox"> Packing &amp; Moving</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Office Cleaning" class="contact-svc-checkbox"> Office Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Partnership Enquiry" class="contact-svc-checkbox"> Partnership Enquiry</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Other" class="contact-svc-checkbox"> Other</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group"><label for="message">Message</label><textarea id="message" placeholder="Tell us about your requirements, property size, preferred date..."></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/logo2.jpeg" alt="On The Move ZA">
+          <p>Professional cleaning, packing, moving and home setup services. From packed to perfectly placed.</p>
+        </div>
+        <div><h4>Quick Links</h4><ul><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="partners.html">Estate Partners</a></li></ul></div>
+        <div><h4>Services</h4><ul><li><a href="services.html">Deep Cleaning</a></li><li><a href="services.html">Move In/Out</a></li><li><a href="services.html">Weekly Maid</a></li><li><a href="services.html">Carpet &amp; Upholstery</a></li></ul></div>
+        <div><h4>Contact</h4><ul><li><i class="fas fa-phone"></i> 074 353 8569</li><li><i class="fab fa-whatsapp"></i> 074 353 8569</li><li><i class="fas fa-envelope"></i> onthemovezao@gmail.com</li><li><i class="fas fa-map-marker-alt"></i> Johannesburg, Pretoria and surrounding</li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 On The Move ZA. All rights reserved. | From Packed to Perfectly Placed</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/27743538569" class="whatsapp-float" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <script src="js/main.js"></script>
+
+  <script>
+    // --- CONTACT MULTI-SELECT DROPDOWN LOGIC ---
+    const contactDropdown = document.getElementById('contact-service-dropdown');
+    const contactDisplayText = document.getElementById('contact-service-display-text');
+    const contactCheckboxes = document.querySelectorAll('.contact-svc-checkbox');
+
+    function toggleContactDropdown() {
+      contactDropdown.classList.toggle('open');
+    }
+
+    function closeContactDropdown() {
+      contactDropdown.classList.remove('open');
+      updateContactDisplayText();
+    }
+
+    document.addEventListener('click', function(event) {
+      const container = document.getElementById('contact-service-multi-select');
+      if (!container.contains(event.target)) {
+        closeContactDropdown();
+      }
+    });
+
+    function updateContactDisplayText() {
+      const selected = Array.from(contactCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+      
+      if (selected.length === 0) {
+        contactDisplayText.textContent = 'Select services...';
+        contactDisplayText.className = 'placeholder';
+      } else if (selected.length <= 2) {
+        contactDisplayText.textContent = selected.join(', ');
+        contactDisplayText.className = 'selected-text';
+      } else {
+        contactDisplayText.textContent = `${selected.length} services selected`;
+        contactDisplayText.className = 'selected-text';
+      }
+    }
+
+    contactCheckboxes.forEach(cb => {
+      cb.addEventListener('change', updateContactDisplayText);
+    });
+
+    // --- FORM SUBMISSION (WHATSAPP) ---
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const selectedServices = Array.from(contactCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+      
+      if (selectedServices.length === 0) {
+        alert('Please select at least one service.');
+        return;
+      }
+
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const message = document.getElementById('message').value || 'None';
+
+      // Construct WhatsApp Message
+      let waMessage = `*NEW CONTACT ENQUIRY*\n\n`;
+      waMessage += `*Name:* ${name}\n`;
+      waMessage += `*Phone:* ${phone}\n`;
+      waMessage += `*Services:* ${selectedServices.join(', ')}\n`;
+      waMessage += `*Message:* ${message}\n`;
+
+      const whatsappNumber = '27743538569'; // Your number
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(waMessage)}`;
+      
+      window.open(whatsappUrl, '_blank');
+    });
+  </script>
+</body>
+</html>

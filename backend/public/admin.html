@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin | On The Move ZA</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+<style>
+/* ========== WEBSITE MATCHED VARIABLES ========== */
+:root {
+  --primary-green: #1a5c2e;
+  --dark-green: #0d3d1f;
+  --accent-yellow: #f5c518;
+  --light-yellow: #ffe066;
+  --black: #1a1a1a;
+  --white: #ffffff;
+  --bg-color: #f0f7f2;
+  --gray: #6c757d;
+  --light-gray: #e9ecef;
+  --shadow: 0 4px 20px rgba(13,61,38,0.08);
+  --shadow-hover: 0 8px 30px rgba(13,61,38,0.15);
+  --radius: 10px;
+  --transition: all 0.3s ease;
+  --sidebar-width: 260px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-color);color:var(--black);min-height:100vh;font-size:14px;display:flex;overflow-x:hidden;line-height:1.5}
+
+/* ========== LOGIN SCREEN ========== */
+#login-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, var(--dark-green) 0%, var(--primary-green) 60%, #2d8a4a 100%);padding:20px;z-index:9999}
+.login-box{background:var(--white);padding:32px;border-radius:16px;width:100%;max-width:380px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5)}
+.login-logo{text-align:center;margin-bottom:24px}
+.login-logo img{height:60px;margin-bottom:12px;border-radius:8px}
+.login-logo h1{font-size:1.2rem;font-weight:800;color:var(--primary-green);letter-spacing:.5px}
+.login-logo p{color:var(--gray);font-size:.85rem;margin-top:2px}
+
+/* ========== FORMS & BUTTONS ========== */
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:.8rem;font-weight:600;color:var(--black);margin-bottom:4px}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 12px;border:1px solid var(--light-gray);border-radius:8px;font-size:.9rem;font-family:inherit;transition:var(--transition);background:var(--white)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--primary-green);box-shadow:0 0 0 3px rgba(26,92,46,0.15)}
+.fg textarea{min-height:80px;resize:vertical}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:8px;font-weight:600;font-size:.85rem;border:none;cursor:pointer;transition:var(--transition);text-decoration:none}
+.btn-primary{background:var(--primary-green);color:var(--white)}
+.btn-primary:hover{background:var(--dark-green);transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,92,46,0.2)}
+.btn-secondary{background:var(--white);border:1px solid var(--light-gray);color:var(--black)}
+.btn-secondary:hover{background:var(--off-white);border-color:#d1d5db}
+.btn-danger{background:#dc2626;color:white}
+.btn-danger:hover{background:#b91c1c}
+.btn-sm{padding:6px 10px;font-size:.75rem}
+.btn-block{width:100%;padding:11px}
+
+/* ========== APP LAYOUT ========== */
+#app{display:none;width:100%}
+
+/* DARK GREEN SIDEBAR */
+.sidebar{width:var(--sidebar-width);background:var(--dark-green);border-right:1px solid rgba(255,255,255,0.05);color:var(--white);position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:100;transition:var(--transition)}
+.sidebar.closed{transform:translateX(-100%)}
+
+.sidebar .brand{padding:20px 16px;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);border-bottom:1px solid rgba(255,255,255,0.1)}
+.sidebar .brand img{height:40px;border-radius:6px;background:white;padding:2px}
+.sidebar .brand-text h2{font-size:.9rem;font-weight:800;color:var(--white);letter-spacing:0.5px;line-height:1.2}
+.sidebar .brand-text span{font-size:.65rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+.nav-menu{padding:16px 10px;flex-grow:1;overflow-y:auto}
+.ni{display:flex;align-items:center;gap:12px;padding:10px 14px;color:rgba(255,255,255,0.7);cursor:pointer;font-size:.9rem;font-weight:500;transition:var(--transition);border-radius:8px;margin-bottom:4px}
+.ni:hover{background:rgba(255,255,255,0.1);color:var(--white)}
+.ni.on{background:var(--primary-green);color:var(--white);font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.ni.on i{color:var(--accent-yellow)}
+.ni i{width:18px;text-align:center;font-size:.95rem;color:rgba(255,255,255,0.5);transition:var(--transition)}
+
+.sidebar-footer{padding:16px;border-top:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.15)}
+.admin-info{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:.8rem}
+.admin-avatar{width:32px;height:32px;background:var(--accent-yellow);color:var(--dark-green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
+
+/* MAIN WRAPPER */
+.main-wrapper{flex-grow:1;margin-left:var(--sidebar-width);transition:var(--transition);min-height:100vh;display:flex;flex-direction:column;width:calc(100% - var(--sidebar-width))}
+.main-wrapper.expanded{margin-left:0;width:100%}
+
+/* TOP BAR */
+.top-bar{background:var(--primary-green);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50;height:60px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.top-bar-left{display:flex;align-items:center;gap:12px}
+.sidebar-toggle{background:none;border:none;font-size:1.1rem;color:var(--white);cursor:pointer;padding:6px;transition:var(--transition);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.sidebar-toggle:hover{background:rgba(255,255,255,0.15)}
+.top-logo{height:36px;border-radius:6px;display:none;background:white;padding:2px;}
+.top-logo.visible{display:block}
+.top-bar-right{display:flex;align-items:center;gap:12px;font-size:0.8rem;font-weight:500;color:var(--white)}
+
+/* CONTENT AREA */
+.main-content{padding:24px;max-width:1300px;margin:0 auto;width:100%;flex-grow:1}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.ph h1{font-size:1.5rem;font-weight:800;color:var(--dark-green);letter-spacing:-0.5px}
+.ph .sub{font-size:.85rem;color:var(--gray);margin-top:2px}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.sc{background:var(--white);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px;border-left:4px solid var(--primary-green);transition:var(--transition)}
+.sc:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.sc .ic{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--primary-green);color:var(--white)}
+.sc .n{font-size:1.5rem;font-weight:800;color:var(--dark-green);line-height:1}
+.sc .l{font-size:.75rem;color:var(--gray);margin-top:2px;font-weight:600}
+
+/* CARDS */
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:20px;border:none}
+
+/* TABLES */
+.table-responsive{width:100%;overflow-x:auto;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:none}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--light-gray);font-size:.85rem;vertical-align:middle}
+th{font-weight:700;color:var(--white);font-size:.75rem;text-transform:uppercase;letter-spacing:0.5px;background:var(--primary-green)}
+tr:hover td{background:#f0f7f2}
+tr:last-child td{border-bottom:none}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:4px 8px;border-radius:4px;font-size:.65rem;font-weight:700;letter-spacing:0.2px;text-transform:uppercase}
+.bg{background:#d1fae5;color:#065f46}
+.by{background:#fef3c7;color:#92400e}
+.bb{background:#dbeafe;color:#1e40af}
+.bgr{background:var(--light-gray);color:#4b5563}
+.bp{background:#f3e8ff;color:#6b21a8}
+
+/* MODALS */
+.mo{position:fixed;inset:0;background:rgba(13,61,38,.7);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px;backdrop-filter:blur(3px)}
+.mo.open{display:flex;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.md{background:var(--white);border-radius:12px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,0.3)}
+.md h2{font-size:1.15rem;font-weight:800;color:var(--primary-green);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.ma{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;border-top:1px solid var(--light-gray);padding-top:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.img-prev{width:100%;max-height:140px;object-fit:cover;border-radius:8px;margin-top:8px;display:none;border:1px solid var(--light-gray)}
+.img-prev.show{display:block}
+
+/* GALLERY */
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.gi{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:#2d6a4f;box-shadow:var(--shadow);border:1px solid #d1e3d8;transition:var(--transition)}
+.gi:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.gi img,.gi video{width:100%;height:100%;object-fit:cover;object-position:center;}
+.gi .x{position:absolute;top:6px;right:6px;background:rgba(13,61,38,0.8);color:white;border:none;border-radius:4px;width:24px;height:24px;cursor:pointer;font-size:.75rem;transition:var(--transition);display:flex;align-items:center;justify-content:center}
+.gi .x:hover{background:#dc2626}
+.uz{border:2px dashed #a3c4b2;border-radius:10px;padding:32px;text-align:center;color:var(--primary-green);cursor:pointer;transition:var(--transition);background:#f0f7f2}
+.uz:hover,.uz.over{border-color:var(--primary-green);background:#e8f5ee;}
+
+/* CROPPER MODAL SPECIFIC */
+#cropper-modal .md { max-width: 800px; }
+#image-to-crop { max-width: 100%; max-height: 60vh; display: block; margin: 0 auto; }
+
+/* UTILITIES */
+.hidden{display:none!important}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--dark-green);color:white;padding:12px 18px;border-radius:8px;font-weight:500;font-size:.85rem;box-shadow:var(--shadow-hover);z-index:2000;display:none;align-items:center;gap:8px;border-left:4px solid var(--accent-yellow)}
+.toast.show{display:flex;animation:slideUp 0.3s ease}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.search{padding:8px 12px 8px 34px;border:1px solid var(--light-gray);border-radius:8px;font-size:.85rem;width:100%;max-width:260px;background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z' stroke='%236c757d' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 10px center/14px no-repeat}
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .main-wrapper{margin-left:0 !important;width:100% !important}
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .two{grid-template-columns:1fr}
+  .top-bar{padding:10px 16px}
+  .main-content{padding:16px}
+  .stats{grid-template-columns:1fr}
+  .top-logo{display:block !important}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <img src="images/logo.jpeg" alt="On The Move ZA Logo">
+      <h1>ON THE MOVE ZA</h1>
+      <p>Admin Dashboard Portal</p>
+    </div>
+    <form id="login-form">
+      <div class="fg"><label>Username</label><input type="text" id="username" value="admin" required></div>
+      <div class="fg"><label>Password</label><input type="password" id="password" required placeholder="••••••••"></div>
+      <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+      <p id="login-error" class="err hidden" style="color:#dc2626;font-size:.8rem;margin-top:10px;text-align:center;"></p>
+    </form>
+  </div>
+</div>
+
+<!-- APP WRAPPER -->
+<div id="app">
+  
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <a href="/" target="_blank" class="brand">
+      <img src="images/logo.jpeg" alt="Logo">
+      <div class="brand-text">
+        <h2>ON THE MOVE</h2>
+        <span>Admin Panel</span>
+      </div>
+    </a>
+    
+    <div class="nav-menu">
+      <div class="ni on" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</div>
+      <div class="ni" data-page="services"><i class="fas fa-broom"></i> Services</div>
+      <div class="ni" data-page="pricing"><i class="fas fa-tags"></i> Pricing</div>
+      <div class="ni" data-page="gallery"><i class="fas fa-images"></i> Gallery</div>
+      <div class="ni" data-page="settings"><i class="fas fa-cog"></i> Settings</div>
+    </div>
+    
+    <div class="sidebar-footer">
+      <div class="admin-info">
+        <div class="admin-avatar">A</div>
+        <div>
+          <div style="font-weight:600;color:var(--white);">Administrator</div>
+          <div style="font-size:.7rem;color:rgba(255,255,255,0.6);">admin@otmza.co.za</div>
+        </div>
+      </div>
+      <button class="btn btn-secondary btn-sm" style="width:100%;background:rgba(255,255,255,0.1);color:var(--white);border:none;" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT WRAPPER -->
+  <div class="main-wrapper" id="main-wrapper">
+    
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <button class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+        <img src="images/logo.jpeg" alt="Logo" class="top-logo" id="top-logo">
+      </div>
+      <div class="top-bar-right">
+        <a href="/" target="_blank" class="btn btn-secondary btn-sm" style="background:rgba(255,255,255,0.15);color:white;border:none;"><i class="fas fa-external-link-alt"></i> View Website</a>
+      </div>
+    </header>
+
+    <!-- PAGES -->
+    <div class="main-content">
+      
+      <!-- DASHBOARD -->
+      <section id="page-dashboard" class="page">
+        <div class="ph">
+          <div><h1>Dashboard Overview</h1><div class="sub">Welcome back. Here is what is happening today.</div></div>
+        </div>
+        <div class="stats" id="stats-cards"></div>
+        <div class="card">
+          <h3 style="margin-bottom:12px;color:var(--dark-green);font-weight:700;font-size:1rem;"><i class="fas fa-bolt" style="color:var(--accent-yellow);margin-right:6px;"></i> Quick Actions</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="showPage('services');openServiceModal()"><i class="fas fa-plus"></i> Add Service</button>
+            <button class="btn btn-secondary" onclick="showPage('pricing');openPricingModal()"><i class="fas fa-plus"></i> Add Price</button>
+            <button class="btn btn-secondary" onclick="showPage('gallery')"><i class="fas fa-upload"></i> Upload Image</button>
+          </div>
+        </div>
+        <div class="card" style="background:#e8f5ee;border-left:4px solid var(--primary-green)">
+          <p style="color:var(--primary-green);font-size:.85rem;display:flex;align-items:center;gap:8px;font-weight:600;"><i class="fas fa-info-circle"></i>
+            All changes are synced <strong>instantly</strong> to the live website.</p>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="page-services" class="page hidden">
+        <div class="ph">
+          <div><h1>Manage Services</h1><div class="sub">Add, edit, or remove services shown on the website.</div></div>
+          <button class="btn btn-primary" onclick="openServiceModal()"><i class="fas fa-plus"></i> Add Service</button>
+        </div>
+        <div class="filter-row">
+          <input class="search" id="svc-search" placeholder="Search services..." oninput="filterServices()">
+          <select id="svc-filter" onchange="filterServices()" style="padding:8px 12px;border:1px solid var(--light-gray);border-radius:8px;background:var(--white);font-weight:500;font-family:inherit;color:var(--black);font-size:0.85rem">
+            <option value="">All Categories</option>
+            <option value="cleaning">Residential & Commercial Cleaning</option>
+            <option value="specialised">Specialised Cleaning</option>
+            <option value="packing">Packing, Moving & Home Setup</option>
+          </select>
+        </div>
+        <div class="svc-grid" id="services-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="page-pricing" class="page hidden">
+        <div class="ph">
+          <div><h1>Manage Pricing</h1><div class="sub">Price packages displayed on the pricing page.</div></div>
+          <button class="btn btn-primary" onclick="openPricingModal()"><i class="fas fa-plus"></i> Add Price</button>
+        </div>
+        <div class="filter-row">
+          <select id="pricing-filter" onchange="loadPricing()" style="padding:8px 12px;border:1px solid var(--light-gray);border-radius:8px;background:var(--white);font-weight:500;font-family:inherit;color:var(--black);font-size:0.85rem">
+            <option value="">All Tabs</option>
+            <option value="standard">Standard Cleaning</option>
+            <option value="spring">Spring Cleaning</option>
+            <option value="deep">Deep Cleaning</option>
+            <option value="moveout">Empty / Move-Out</option>
+            <option value="weekly">Weekly Maid</option>
+            <option value="upholstery">Carpets & Upholstery</option>
+            <option value="events">Pre & Post Event Cleaning</option>
+          </select>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead><tr><th>Service Group</th><th>Label</th><th>Price</th><th>Unit</th><th style="text-align:right;">Actions</th></tr></thead>
+            <tbody id="pricing-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="page-gallery" class="page hidden">
+        <div class="ph"><div><h1>Website Gallery</h1><div class="sub">Manage photos and videos shown on the gallery page.</div></div></div>
+        <div class="card">
+          <div class="fg"><label for="gallery-category">Select Gallery Category</label>
+            <select id="gallery-category" style="max-width:300px;">
+              <option value="cleaning">Cleaning</option>
+              <option value="packing">Packing &amp; Sorting</option>
+              <option value="moving">Moving</option>
+              <option value="events">Events &amp; Functions</option>
+            </select>
+          </div>
+          <div class="uz" id="upload-zone">
+            <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem;display:block;margin-bottom:10px;color:var(--primary-green);"></i>
+            <p style="font-weight:600;color:var(--primary-green);font-size:.95rem;">Click or drag files here to upload</p>
+            <p style="font-size:.8rem;margin-top:4px">Select multiple images or videos (max 15 MB each).</p>
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm" multiple style="display:none">
+          </div>
+          <div id="gallery-upload-preview" style="display:none;margin-top:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;">
+              <strong id="gallery-selected-count" style="color:var(--black);font-size:.85rem;">0 files selected</strong>
+              <button type="button" class="btn btn-secondary btn-sm" id="gallery-clear-selection">Clear</button>
+            </div>
+            <div id="gallery-preview-grid" class="gg"></div>
+            <div style="display:flex;justify-content:flex-end;margin-top:16px;">
+              <button type="button" class="btn btn-primary" id="gallery-save-button"><i class="fas fa-save"></i> Save to Website</button>
+            </div>
+            <p id="gallery-upload-status" style="margin-top:10px;color:var(--gray);font-size:.8rem;" aria-live="polite"></p>
+          </div>
+        </div>
+        <div style="margin:24px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <h3 style="color:var(--dark-green);font-size:1rem;font-weight:700;">Live Website Images</h3>
+          <span style="font-size:.8rem;color:var(--gray)">Deleting here removes the image from the live site.</span>
+        </div>
+        <div class="gg" id="gallery-grid"></div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="page-settings" class="page hidden">
+        <div class="ph"><div><h1>Website Settings</h1><div class="sub">Update contact details and business info.</div></div></div>
+        <div class="card">
+          <form id="settings-form">
+            <div class="two">
+              <div class="fg"><label>Site Name</label><input name="siteName" placeholder="On The Move ZA"></div>
+              <div class="fg"><label>Tagline</label><input name="tagline" placeholder="From Packed to Perfectly Placed"></div>
+            </div>
+            <div class="two">
+              <div class="fg"><label>Phone Number</label><input name="phone" placeholder="074 353 8569"></div>
+            </div>
+            <div class="two">
+              <div class="fg"><label>WhatsApp (no +)</label><input name="whatsapp" placeholder="27743538569"></div>
+              <div class="fg"><label>Email Address</label><input name="email" type="email" placeholder="onthemovezao@gmail.com"></div>
+            </div>
+            <div class="two">
+              <div class="fg"><label>Instagram Link</label><input name="instagram" placeholder="https://instagram.com/..."></div>
+              <div class="fg"><label>TikTok Link</label><input name="tiktok" placeholder="https://tiktok.com/@..."></div>
+            </div>
+            <div class="fg"><label>Facebook Link</label><input name="facebook" placeholder="https://facebook.com/..."></div>
+            <div class="fg"><label>Service Areas</label><input name="areas" placeholder="Johannesburg, Pretoria and surrounding"></div>
+            <div class="fg"><label>Call-out Fee Note</label><input name="calloutFee" placeholder="R100 call-out fee for distances under 20 km"></div>
+            
+            <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--light-gray);">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save All Settings</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- SERVICE MODAL -->
+<div class="mo" id="service-modal">
+  <div class="md">
+    <h2 id="service-modal-title"><i class="fas fa-broom" style="color:var(--primary-green);"></i> Add Service</h2>
+    <form id="service-form">
+      <input type="hidden" name="id">
+      <div class="fg"><label>Service Name *</label><input name="name" required placeholder="e.g. Pre & Post Event Cleaning"></div>
+      <div class="fg"><label>Short Description</label><input name="shortDescription" placeholder="One-line summary for cards"></div>
+      <div class="fg"><label>Full Description</label><textarea name="description" placeholder="Detailed description"></textarea></div>
+      <div class="two">
+        <div class="fg"><label>Website Category</label>
+          <select name="category">
+            <option value="cleaning">Residential & Commercial Cleaning</option>
+            <option value="specialised">Specialised Cleaning</option>
+            <option value="packing">Packing, Moving & Home Setup</option>
+          </select>
+        </div>
+        <div class="fg"><label>Display Order</label><input type="number" name="order" min="1" placeholder="e.g. 1"></div>
+      </div>
+      <div class="fg"><label>Features (one per line)</label><textarea name="features" placeholder="Event preparation&#10;Full venue cleaning&#10;Dishwashing"></textarea></div>
+      <div class="fg"><label>Service Image</label>
+        <input type="file" name="image" id="svc-image-input" accept="image/*">
+        <!-- Hidden input to hold the cropped image data -->
+        <input type="hidden" name="cropped_image_data" id="svc-cropped-data">
+        <img id="svc-img-preview" class="img-prev" alt="Preview">
+      </div>
+      <div class="fg"><label>Status</label>
+        <select name="active"><option value="true">Active (Visible on site)</option><option value="false">Hidden (Draft)</option></select>
+      </div>
+      <div class="ma">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('service-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Service</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- PRICING MODAL -->
+<div class="mo" id="pricing-modal">
+  <div class="md">
+    <h2 id="pricing-modal-title"><i class="fas fa-tag" style="color:var(--primary-green);"></i> Add Price</h2>
+    <form id="pricing-form">
+      <input type="hidden" name="id">
+      
+      <div class="fg"><label>Website Tab Category *</label>
+        <select name="category" id="pricing-category" required>
+          <option value="standard">Standard Cleaning</option>
+          <option value="spring">Spring Cleaning</option>
+          <option value="deep">Deep Cleaning</option>
+          <option value="moveout">Empty / Move-Out</option>
+          <option value="weekly">Weekly Maid</option>
+          <option value="upholstery">Carpets & Upholstery</option>
+          <option value="events">Pre & Post Event Cleaning</option>
+        </select>
+      </div>
+
+      <div class="fg"><label>Service Group Name *</label><input name="serviceId" required placeholder="e.g. Standard Apartment Cleaning"></div>
+      <div class="fg"><label>Label *</label><input name="label" required placeholder="e.g. 2 Bedroom Apartment"></div>
+      
+      <div class="two">
+        <div class="fg"><label>Price (R)</label><input type="number" name="price" min="0" step="50" required placeholder="350"></div>
+        <div class="fg"><label>Unit</label><input name="unit" value="per clean" placeholder="e.g. per clean / per week"></div>
+      </div>
+      <div class="fg"><label>Notes (Optional)</label><input name="notes" placeholder="Any specific details"></div>
+      
+      <div class="ma">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('pricing-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Price</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- IMAGE CROPPER MODAL -->
+<div class="mo" id="cropper-modal">
+  <div class="md">
+    <h2><i class="fas fa-crop-alt" style="color:var(--primary-green);"></i> Crop Image</h2>
+    <p style="font-size:.85rem;color:var(--gray);margin-bottom:12px;">Drag the corners to select exactly what should be visible on the website. The crop box shape is fixed to fit the design.</p>
+    <div style="background:#f0f0f0; padding: 10px; border-radius: 8px;">
+      <img id="image-to-crop" src="" alt="Image to crop">
+    </div>
+    <div class="ma">
+      <button type="button" class="btn btn-secondary" onclick="cancelCrop()">Cancel</button>
+      <button type="button" class="btn btn-primary" onclick="confirmCrop()"><i class="fas fa-check"></i> Apply Crop</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="fas fa-check-circle" style="color:var(--accent-yellow);"></i> <span id="toast-msg"></span></div>
+
+<script>
+const API='/api';
+let token=localStorage.getItem('otmza_token')||'';
+let servicesCache=[];
+
+// Cropper Variables
+let cropper = null;
+let currentCropType = null; // 'service' or 'gallery'
+let currentCropCallback = null;
+
+// Sidebar Toggle Logic
+const sidebar = document.getElementById('sidebar');
+const mainWrapper = document.getElementById('main-wrapper');
+const sidebarToggle = document.getElementById('sidebar-toggle');
+const topLogo = document.getElementById('top-logo');
+
+function checkSidebarState() {
+  if (window.innerWidth > 900) {
+    if (sidebar.classList.contains('closed')) {
+      mainWrapper.style.marginLeft = '0';
+      mainWrapper.classList.add('expanded');
+      topLogo.classList.add('visible');
+    } else {
+      mainWrapper.style.marginLeft = 'var(--sidebar-width)';
+      mainWrapper.classList.remove('expanded');
+      topLogo.classList.remove('visible');
+    }
+  } else {
+    mainWrapper.style.marginLeft = '0';
+    mainWrapper.classList.add('expanded');
+    topLogo.classList.add('visible');
+    if (!sidebar.classList.contains('open')) {
+      sidebar.classList.remove('closed');
+    }
+  }
+}
+
+checkSidebarState();
+
+sidebarToggle.addEventListener('click', () => {
+  if (window.innerWidth <= 900) {
+    sidebar.classList.toggle('open');
+    topLogo.classList.add('visible');
+  } else {
+    sidebar.classList.toggle('closed');
+    if (sidebar.classList.contains('closed')) {
+      mainWrapper.style.marginLeft = '0';
+      mainWrapper.classList.add('expanded');
+      topLogo.classList.add('visible');
+    } else {
+      mainWrapper.style.marginLeft = 'var(--sidebar-width)';
+      mainWrapper.classList.remove('expanded');
+      topLogo.classList.remove('visible');
+    }
+  }
+});
+
+function toast(m){document.getElementById('toast-msg').textContent=m;const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+function authH(j=true){const h={'Authorization':'Bearer '+token};if(j)h['Content-Type']='application/json';return h}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+
+async function login(e){
+  e.preventDefault();
+  const err=document.getElementById('login-error');err.classList.add('hidden');
+  try{
+    const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:document.getElementById('username').value,password:document.getElementById('password').value})});
+    const d=await res.json();if(!res.ok)throw new Error(d.error||'Login failed');
+    token=d.token;localStorage.setItem('otmza_token',token);showApp();
+  }catch(ex){err.textContent=ex.message;err.classList.remove('hidden')}
+}
+function logout(){token='';localStorage.removeItem('otmza_token');document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex'}
+async function checkAuth(){if(!token)return false;try{return(await fetch(API+'/auth/me',{headers:authH()})).ok}catch{return false}}
+async function showApp(){document.getElementById('login-screen').style.display='none';document.getElementById('app').style.display='block';checkSidebarState();showPage('dashboard')}
+
+document.querySelectorAll('.ni').forEach(el=>el.addEventListener('click',()=>{
+  showPage(el.dataset.page);
+  if (window.innerWidth <= 900) {
+    sidebar.classList.remove('open');
+  }
+}));
+
+function showPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+  document.getElementById('page-'+n).classList.remove('hidden');
+  document.querySelectorAll('.ni').forEach(x=>x.classList.remove('on'));
+  document.querySelector('.ni[data-page="'+n+'"]').classList.add('on');
+  if(n==='dashboard')loadDashboard();
+  if(n==='services')loadServices();
+  if(n==='pricing')loadPricing();
+  if(n==='gallery')loadGallery();
+  if(n==='settings')loadSettings();
+}
+
+async function fetchServices(){
+  try{const r=await fetch(API+'/services?all=1',{headers:authH()});if(r.ok)return r.json()}catch{}
+  return fetch(API+'/services').then(r=>r.json());
+}
+
+async function loadDashboard(){
+  const[svcs,pr,gal]=await Promise.all([fetchServices(),fetch(API+'/pricing').then(r=>r.json()),fetch(API+'/gallery').then(r=>r.json())]);
+  servicesCache=svcs;
+  document.getElementById('stats-cards').innerHTML=`
+    <div class="sc"><div class="ic"><i class="fas fa-broom"></i></div><div><div class="n">${svcs.length}</div><div class="l">Total Services</div></div></div>
+    <div class="sc"><div class="ic"><i class="fas fa-tags"></i></div><div><div class="n">${pr.length}</div><div class="l">Price Packages</div></div></div>
+    <div class="sc"><div class="ic"><i class="fas fa-images"></i></div><div><div class="n">${gal.length}</div><div class="l">Gallery Images</div></div></div>
+    <div class="sc"><div class="ic"><i class="fas fa-eye"></i></div><div><div class="n">${svcs.filter(s=>s.active!==false).length}</div><div class="l">Visible Live</div></div></div>`;
+}
+
+const catBadge={cleaning:'bg',specialised:'bp',packing:'bb'};
+function renderServiceCards(list){
+  document.getElementById('services-grid').innerHTML=list.map(s=>`
+    <div class="sc" style="flex-direction:column;align-items:stretch;padding:0;overflow:hidden;border-left:none;border-top:4px solid var(--primary-green);">
+      <div style="height:160px;background:#2d6a4f;display:flex;align-items:center;justify-content:center;position:relative;">
+        ${s.image?`<img src="${esc(s.image)}" style="width:100%;height:100%;object-fit:cover;object-position:center;">`:`<i class="fas fa-image" style="font-size:2rem;color:#a3c4b2;"></i>`}
+        <span class="badge ${s.active!==false?'bg':'bgr'}" style="position:absolute;top:8px;left:8px;">${s.active!==false?'Active':'Hidden'}</span>
+      </div>
+      <div style="padding:16px;flex-grow:1;display:flex;flex-direction:column;">
+        <h3 style="font-size:.95rem;font-weight:700;color:var(--black);margin-bottom:6px;">${esc(s.name)}</h3>
+        <p style="font-size:.8rem;color:var(--gray);line-height:1.4;margin-bottom:12px;flex-grow:1;">${esc((s.shortDescription||s.description||'').slice(0,90))}${(s.shortDescription||s.description||'').length>90?'…':''}</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <span class="badge ${catBadge[s.category]||'bgr'}">${esc(s.category)}</span>
+        </div>
+        <div style="display:flex;gap:6px;border-top:1px solid var(--light-gray);padding-top:12px;">
+          <button class="btn btn-secondary btn-sm" style="flex:1;" onclick='editService(${JSON.stringify(s).replace(/'/g,"&#39;")})'><i class="fas fa-edit"></i> Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteService('${s.id}')"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    </div>`).join('')||'<p style="color:var(--gray);grid-column:1/-1;text-align:center;padding:30px;font-size:0.85rem;">No services found. Click "Add Service" to create one.</p>';
+}
+
+async function loadServices(){servicesCache=await fetchServices();renderServiceCards(servicesCache)}
+function filterServices(){
+  const q=document.getElementById('svc-search').value.toLowerCase();
+  const cat=document.getElementById('svc-filter').value;
+  let list=servicesCache;
+  if(cat)list=list.filter(s=>s.category===cat);
+  if(q)list=list.filter(s=>(s.name+s.description+s.shortDescription).toLowerCase().includes(q));
+  renderServiceCards(list);
+}
+
+function openServiceModal(s=null){
+  const f=document.getElementById('service-form');f.reset();
+  document.getElementById('svc-img-preview').classList.remove('show');
+  document.getElementById('svc-cropped-data').value = ''; // Clear cropped data
+  
+  // Reset file input
+  const fileInput = document.getElementById('svc-image-input');
+  fileInput.value = '';
+
+  document.getElementById('service-modal-title').innerHTML=s?'<i class="fas fa-edit" style="color:var(--primary-green);"></i> Edit Service':'<i class="fas fa-broom" style="color:var(--primary-green);"></i> Add Service';
+  
+  if(s){
+    f.id.value=s.id;f.name.value=s.name||'';f.shortDescription.value=s.shortDescription||'';
+    f.description.value=s.description||'';f.category.value=s.category||'cleaning';
+    f.features.value=(s.features||[]).join('\n');
+    f.active.value=s.active!==false?'true':'false';f.order.value=s.order||'';
+    if(s.image){
+      const p=document.getElementById('svc-img-preview');
+      p.src=s.image;
+      p.classList.add('show');
+    }
+  }else f.id.value='';
+  document.getElementById('service-modal').classList.add('open');
+}
+function editService(s){openServiceModal(s)}
+
+// --- CROPPER LOGIC FOR SERVICES ---
+document.getElementById('svc-image-input').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const img = document.getElementById('image-to-crop');
+    img.src = event.target.result;
+    
+    // Set the callback to update the service form
+    currentCropType = 'service';
+    currentCropCallback = function(croppedDataUrl) {
+      document.getElementById('svc-cropped-data').value = croppedDataUrl;
+      const p = document.getElementById('svc-img-preview');
+      p.src = croppedDataUrl;
+      p.classList.add('show');
+    };
+    
+    openCropperModal();
+  };
+  reader.readAsDataURL(file);
+  this.value = ''; // Reset input so same file can be selected again if needed
+});
+
+function openCropperModal() {
+  document.getElementById('cropper-modal').classList.add('open');
+  
+  const image = document.getElementById('image-to-crop');
+  
+  if (cropper) cropper.destroy();
+  
+  // Set aspect ratio based on what we are cropping
+  let aspectRatio = NaN;
+  if (currentCropType === 'service') aspectRatio = 16 / 9; // Landscape for services
+  if (currentCropType === 'gallery') aspectRatio = 1; // Square for gallery
+
+  cropper = new Cropper(image, {
+    aspectRatio: aspectRatio,
+    viewMode: 1,
+    background: false,
+    autoCropArea: 0.9,
+  });
+}
+
+function confirmCrop() {
+  if (!cropper) return;
+  
+  // Get the cropped canvas
+  const canvas = cropper.getCroppedCanvas({
+    maxWidth: 1024,
+    maxHeight: 1024,
+    fillColor: '#2d6a4f', // Match the green background
+  });
+  
+  if (!canvas) {
+    alert('Could not crop image.');
+    return;
+  }
+  
+  const croppedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+  if (currentCropCallback) currentCropCallback(croppedDataUrl);
+  
+  cancelCrop(); // Close and clean up
+}
+
+function cancelCrop() {
+  document.getElementById('cropper-modal').classList.remove('open');
+  if (cropper) {
+    cropper.destroy();
+    cropper = null;
+  }
+  document.getElementById('image-to-crop').src = '';
+  currentCropCallback = null;
+  currentCropType = null;
+}
+
+// --- SAVE SERVICE (WITH CROPPED DATA) ---
+document.getElementById('service-form').addEventListener('submit',async e=>{
+  e.preventDefault();const f=e.target;const id=f.id.value;
+  
+  const fd=new FormData();
+  fd.append('name',f.name.value);fd.append('shortDescription',f.shortDescription.value);
+  fd.append('description',f.description.value);fd.append('category',f.category.value);
+  fd.append('active',f.active.value);
+  if(f.order.value)fd.append('order',f.order.value);
+  fd.append('features',JSON.stringify(f.features.value.split('\n').map(x=>x.trim()).filter(Boolean)));
+  
+  // Check if we have a cropped image or a new file upload
+  const croppedData = document.getElementById('svc-cropped-data').value;
+  if (croppedData) {
+    // Convert base64 to Blob and append
+    const blob = await (await fetch(croppedData)).blob();
+    fd.append('image', blob, 'cropped-service.jpg');
+  } else if (f.image.files[0]) {
+    // Fallback if they somehow bypassed the cropper
+    fd.append('image', f.image.files[0]);
+  }
+
+  const res=await fetch(id?API+'/services/'+id:API+'/services',{method:id?'PUT':'POST',headers:{Authorization:'Bearer '+token},body:fd});
+  if(!res.ok){alert((await res.json().catch(()=>({}))).error||'Failed');return}
+  closeModal('service-modal');toast('Service saved — website updated');loadServices();loadDashboard();
+});
+
+async function deleteService(id){
+  if(!confirm('Are you sure you want to delete this service and its prices? This will update the live website immediately.'))return;
+  await fetch(API+'/services/'+id,{method:'DELETE',headers:authH()});
+  toast('Service deleted');loadServices();loadDashboard();
+}
+
+async function loadPricing(){
+  const[pr,sv]=await Promise.all([fetch(API+'/pricing').then(r=>r.json()),fetchServices()]);
+  servicesCache=sv;
+  
+  const filter = document.getElementById('pricing-filter').value;
+  let filtered = pr;
+  
+  if (filter) {
+    filtered = pr.filter(p => p.category === filter);
+  }
+
+  document.getElementById('pricing-table').innerHTML=filtered.map(p=>`
+    <tr>
+      <td><strong style="color:var(--black);">${esc(p.serviceId)}</strong></td>
+      <td>${esc(p.label)}</td>
+      <td style="color:var(--primary-green);font-weight:700;">R${Number(p.price).toLocaleString()}</td>
+      <td><span class="badge bgr">${esc(p.unit||'per clean')}</span></td>
+      <td style="text-align:right;display:flex;justify-content:flex-end;gap:6px;">
+        <button class="btn btn-secondary btn-sm" onclick='editPricing(${JSON.stringify(p)})'><i class="fas fa-edit"></i></button>
+        <button class="btn btn-danger btn-sm" onclick="deletePricing('${p.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>`).join('')||'<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--gray);font-size:0.85rem;">No pricing items found for this category.</td></tr>';
+}
+
+function openPricingModal(item=null){
+  const f=document.getElementById('pricing-form');f.reset();
+  document.getElementById('pricing-modal-title').innerHTML=item?'<i class="fas fa-edit" style="color:var(--primary-green);"></i> Edit Price':'<i class="fas fa-tag" style="color:var(--primary-green);"></i> Add Price';
+  
+  if(item){
+    f.id.value=item.id;
+    f.category.value=item.category || 'standard';
+    f.serviceId.value=item.serviceId;
+    f.label.value=item.label;
+    f.price.value=item.price;
+    f.unit.value=item.unit||'per clean';
+    f.notes.value=item.notes||'';
+  } else {
+    f.id.value='';
+    f.unit.value='per clean';
+  }
+  document.getElementById('pricing-modal').classList.add('open');
+}
+function editPricing(p){openPricingModal(p)}
+
+document.getElementById('pricing-form').addEventListener('submit',async e=>{
+  e.preventDefault();const f=e.target;const id=f.id.value;
+  const body={
+    category: f.category.value, 
+    serviceId: f.serviceId.value,
+    label: f.label.value,
+    price: Number(f.price.value),
+    unit: f.unit.value,
+    notes: f.notes.value
+  };
+  const res=await fetch(id?API+'/pricing/'+id:API+'/pricing',{method:id?'PUT':'POST',headers:authH(),body:JSON.stringify(body)});
+  if(!res.ok){alert((await res.json()).error||'Failed');return}
+  closeModal('pricing-modal');toast('Price saved — website updated');loadPricing();loadDashboard();
+});
+async function deletePricing(id){if(!confirm('Delete this price from the website?'))return;await fetch(API+'/pricing/'+id,{method:'DELETE',headers:authH()});toast('Price deleted');loadPricing();loadDashboard()}
+
+const galleryCategoryLabels={
+  cleaning:'Cleaning',
+  packing:'Packing & Sorting',
+  moving:'Moving',
+  events:'Events & Functions'
+};
+
+let selectedGalleryFiles=[],galleryPreviewUrls=[];
+
+async function loadGallery(){
+  const response=await fetch(API+'/gallery');
+  if(!response.ok)throw new Error('Could not load gallery');
+  const items=await response.json();
+  document.getElementById('gallery-grid').innerHTML=items.map(g=>{
+    const filename=g.filename||g.originalName||'';
+    const video=/\.(mp4|webm)$/i.test(filename);
+    return `<div class="gi" style="aspect-ratio:auto;">
+      ${video?`<video src="${esc(g.url)}" muted controls style="width:100%;height:140px;object-fit:cover"></video>`:`<img src="${esc(g.url)}" alt="${esc(g.originalName||'Gallery image')}" style="width:100%;height:140px;object-fit:cover">`}
+      <div style="padding:10px;background:var(--white);">
+        <div style="font-size:.75rem;font-weight:700;color:var(--primary-green);margin-bottom:2px;">${esc(galleryCategoryLabels[g.category]||'Uncategorised')}</div>
+        <div style="font-size:.7rem;color:var(--gray);overflow-wrap:anywhere;">${esc(g.originalName||filename)}</div>
+      </div>
+      <button class="x" onclick="deleteGallery('${esc(g.id)}')" title="Delete from website"><i class="fas fa-trash"></i></button>
+    </div>`;
+  }).join('')||'<p style="grid-column:1/-1;text-align:center;color:var(--gray);padding:30px;font-size:0.85rem;">No pictures in the website gallery yet.</p>';
+}
+
+const galleryUploadZone=document.getElementById('upload-zone');
+const galleryFileInput=document.getElementById('file-input');
+const galleryPreview=document.getElementById('gallery-upload-preview');
+const galleryPreviewGrid=document.getElementById('gallery-preview-grid');
+const gallerySaveButton=document.getElementById('gallery-save-button');
+const galleryUploadStatus=document.getElementById('gallery-upload-status');
+
+galleryUploadZone.addEventListener('click',()=>galleryFileInput.click());
+galleryUploadZone.addEventListener('dragover',e=>{e.preventDefault();galleryUploadZone.classList.add('over')});
+galleryUploadZone.addEventListener('dragleave',()=>galleryUploadZone.classList.remove('over'));
+galleryUploadZone.addEventListener('drop',e=>{e.preventDefault();galleryUploadZone.classList.remove('over');addGalleryFiles(e.dataTransfer.files)});
+galleryFileInput.addEventListener('change',()=>{addGalleryFiles(galleryFileInput.files);galleryFileInput.value=''});
+
+// --- CROPPER LOGIC FOR GALLERY ---
+// Intercept file addition if it's an image, send to cropper
+async function addGalleryFiles(fileList){
+  const allowed=/\.(jpe?g|png|gif|webp|mp4|webm)$/i;
+  
+  for (const file of Array.from(fileList||[])) {
+    if(!allowed.test(file.name)){alert(file.name+': unsupported file type.');continue}
+    if(file.size>15*1024*1024){alert(file.name+': exceeds the 15 MB limit.');continue}
+    
+    // If it's an image, open cropper
+    if (/\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
+      await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          document.getElementById('image-to-crop').src = event.target.result;
+          currentCropType = 'gallery';
+          currentCropCallback = function(croppedDataUrl) {
+            // Convert base64 to file object and add to queue
+            fetch(croppedDataUrl).then(res => res.blob()).then(blob => {
+              const croppedFile = new File([blob], `cropped-${file.name}`, {type: 'image/jpeg'});
+              selectedGalleryFiles.push(croppedFile);
+              renderGalleryPreviews();
+              resolve();
+            });
+          };
+          openCropperModal();
+        };
+        reader.readAsDataURL(file);
+      });
+    } else {
+      // It's a video, just add it
+      selectedGalleryFiles.push(file);
+      renderGalleryPreviews();
+    }
+  }
+}
+
+function renderGalleryPreviews(){
+  galleryPreviewUrls.forEach(URL.revokeObjectURL);
+  galleryPreviewUrls=[];
+  galleryPreviewGrid.innerHTML='';
+  selectedGalleryFiles.forEach(file=>{
+    const url=URL.createObjectURL(file);galleryPreviewUrls.push(url);
+    const video=/\.(mp4|webm)$/i.test(file.name);
+    const card=document.createElement('div');card.className='gi';card.style.cssText='aspect-ratio:auto;background:var(--white);border:1px solid var(--light-gray)';
+    const media=document.createElement(video?'video':'img');media.src=url;media.style.cssText='width:100%;height:100px;object-fit:cover';
+    if(video){media.muted=true;media.controls=true}
+    const name=document.createElement('div');name.style.cssText='padding:6px;font-size:.7rem;overflow-wrap:anywhere;color:var(--gray)';name.textContent=file.name;
+    card.append(media,name);galleryPreviewGrid.appendChild(card);
+  });
+  document.getElementById('gallery-selected-count').textContent=`${selectedGalleryFiles.length} file${selectedGalleryFiles.length===1?'':'s'} ready to upload`;
+  galleryPreview.style.display=selectedGalleryFiles.length?'block':'none';
+  gallerySaveButton.disabled=!selectedGalleryFiles.length;
+}
+
+function clearGallerySelection(){
+  galleryPreviewUrls.forEach(URL.revokeObjectURL);galleryPreviewUrls=[];
+  selectedGalleryFiles=[];galleryPreviewGrid.innerHTML='';galleryPreview.style.display='none';
+  galleryUploadStatus.textContent='';galleryFileInput.value='';
+}
+document.getElementById('gallery-clear-selection').addEventListener('click',clearGallerySelection);
+gallerySaveButton.addEventListener('click',saveGalleryFiles);
+
+async function saveGalleryFiles(){
+  if(!selectedGalleryFiles.length)return;
+  const category=document.getElementById('gallery-category').value;
+  const files=[...selectedGalleryFiles];let saved=0;const failures=[];
+  gallerySaveButton.disabled=true;document.getElementById('gallery-clear-selection').disabled=true;
+  for(let i=0;i<files.length;i++){
+    const file=files[i];galleryUploadStatus.textContent=`Uploading ${i+1} of ${files.length}: ${file.name}`;
+    const fd=new FormData();fd.append('file',file);fd.append('category',category);
+    try{
+      const response=await fetch(API+'/gallery/upload',{method:'POST',headers:{Authorization:'Bearer '+token},body:fd});
+      const result=await response.json().catch(()=>({}));
+      if(!response.ok)throw new Error(result.error||'Upload failed');
+      saved++;
+    }catch(error){failures.push(`${file.name}: ${error.message}`)}
+  }
+  await loadGallery();await loadDashboard();
+  if(failures.length){galleryUploadStatus.textContent=`Saved ${saved} of ${files.length}. ${failures.join(' | ')}`;toast(`${saved} saved; ${failures.length} failed`)}
+  else{toast(`Successfully uploaded ${saved} item(s) to ${galleryCategoryLabels[category]}`);clearGallerySelection()}
+  gallerySaveButton.disabled=false;document.getElementById('gallery-clear-selection').disabled=false;
+}
+
+async function deleteGallery(id){
+  if(!confirm('Delete this picture from the website gallery? This cannot be undone.'))return;
+  try{
+    const response=await fetch(API+'/gallery/'+encodeURIComponent(id),{method:'DELETE',headers:authH()});
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(result.error||'Delete failed');
+    toast('Picture deleted from website gallery');await loadGallery();await loadDashboard();
+  }catch(error){alert(error.message)}
+}
+
+async function loadSettings(){
+  const s=await fetch(API+'/settings').then(r=>r.json());
+  const f=document.getElementById('settings-form');
+  Object.keys(s).forEach(k=>{if(f[k])f[k].value=s[k]});
+}
+document.getElementById('settings-form').addEventListener('submit',async e=>{
+  e.preventDefault();const body={};new FormData(e.target).forEach((v,k)=>body[k]=v);
+  const res=await fetch(API+'/settings',{method:'PUT',headers:authH(),body:JSON.stringify(body)});
+  if(res.ok)toast('Settings saved — website updated');else alert('Failed');
+});
+
+document.getElementById('login-form').addEventListener('submit',login);
+(async()=>{if(await checkAuth())showApp()})();
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Book a cleaning, packing or moving service with On The Move ZA in Johannesburg, Pretoria and surrounding.">
+  <title>Book Now | On The Move ZA</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <img src="images/logo.jpeg" alt="On The Move ZA Logo">
+          <div class="logo-text">ON THE MOVE<span>FROM PACKED TO PERFECTLY PLACED</span></div>
+        </a>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="ceo.html">Our Director</a>
+          <a href="services.html">Services</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="partners.html">Partners</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact</a>
+          <a href="book.html" class="nav-cta active">Book Now</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>Book a Service</h1>
+      <p>Secure your booking — we’ll confirm via WhatsApp</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="booking-steps">
+        <div class="step"><div class="step-num">1</div><h4>Fill in the form</h4><p>Tell us what you need and when</p></div>
+        <div class="step"><div class="step-num">2</div><h4>Send via WhatsApp</h4><p>Your details go straight to our team</p></div>
+        <div class="step"><div class="step-num">3</div><h4>Get confirmation</h4><p>We’ll reply with availability and quote</p></div>
+      </div>
+
+      <div style="max-width:640px;margin:0 auto;">
+        <div class="contact-form">
+          <h3>Booking Request</h3>
+          <form id="booking-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required placeholder="Your full name">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone / WhatsApp *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="e.g. 074 000 0000">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>Services Required *</label>
+              <!-- Custom Multi-Select -->
+              <div class="multi-select-container" id="service-multi-select">
+                <div class="multi-select-display" onclick="toggleDropdown()">
+                  <span class="placeholder" id="service-display-text">Select services...</span>
+                  <i class="fas fa-chevron-down" style="color: var(--gray); font-size: 0.8rem;"></i>
+                </div>
+                <div class="multi-select-dropdown" id="service-dropdown">
+                  <!-- Sticky Header with Save Button -->
+                  <div class="multi-select-header">
+                    <span>Select all that apply</span>
+                    <button type="button" onclick="closeDropdown()">Save Selection</button>
+                  </div>
+                  
+                  <div class="multi-select-list">
+                    <label class="multi-select-item"><input type="checkbox" value="Standard Apartment Cleaning" class="svc-checkbox"> Standard Apartment Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Standard House Cleaning" class="svc-checkbox"> Standard House Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Apartment Spring Cleaning" class="svc-checkbox"> Apartment Spring Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Apartment Deep Cleaning" class="svc-checkbox"> Apartment Deep Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="House Deep Cleaning" class="svc-checkbox"> House Deep Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Empty Apartment Deep Cleaning" class="svc-checkbox"> Empty Apartment Deep Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Empty House Deep Cleaning" class="svc-checkbox"> Empty House Deep Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Weekly Maid Service (with laundry)" class="svc-checkbox"> Weekly Maid Service (with laundry)</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Weekly Maid Service (cleaning only)" class="svc-checkbox"> Weekly Maid Service (cleaning only)</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Rug / Carpet Deep Cleaning" class="svc-checkbox"> Rug / Carpet Deep Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Couch Deep Cleaning" class="svc-checkbox"> Couch Deep Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Mattress Deep Cleaning" class="svc-checkbox"> Mattress Deep Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Sleigh Bed / Headboard Cleaning" class="svc-checkbox"> Sleigh Bed / Headboard Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Packing & Wrapping" class="svc-checkbox"> Packing &amp; Wrapping</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Moving & Transportation" class="svc-checkbox"> Moving &amp; Transportation</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Unpacking & Home Setup" class="svc-checkbox"> Unpacking &amp; Home Setup</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Office Cleaning" class="svc-checkbox"> Office Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Post-Construction Cleaning" class="svc-checkbox"> Post-Construction Cleaning</label>
+                    <label class="multi-select-item"><input type="checkbox" value="Other / Custom Quote" class="svc-checkbox"> Other / Custom Quote</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="property">Property Type / Size</label>
+                <input type="text" id="property" name="property" placeholder="e.g. 2 Bedroom Apartment">
+              </div>
+              <div class="form-group">
+                <label for="date">Preferred Date</label>
+                <input type="date" id="date" name="date">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address">Suburb / Area</label>
+              <input type="text" id="address" name="address" placeholder="e.g. Pretoria, Rosebank, Midrand">
+            </div>
+            <div class="form-group">
+              <label for="message">Additional Details</label>
+              <textarea id="message" name="message" placeholder="Any special requirements, access instructions, number of bathrooms, pets, etc."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1.1rem;padding:16px;">
+              <i class="fab fa-whatsapp"></i> Submit Booking via WhatsApp
+            </button>
+            <p style="text-align:center;margin-top:14px;font-size:0.9rem;color:var(--gray);">
+              Or WhatsApp us directly: <a href="https://wa.me/27743538569" target="_blank" style="color:var(--primary-green);font-weight:600;">074 353 8569</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header"><h2>What Happens Next?</h2><div class="underline"></div></div>
+      <div class="why-grid">
+        <div class="why-item"><div class="why-icon"><i class="fas fa-reply"></i></div><h3>Quick Response</h3><p>We aim to respond to all booking requests as soon as possible, often same-day.</p></div>
+        <div class="why-item"><div class="why-icon"><i class="fas fa-file-invoice"></i></div><h3>Clear Quote</h3><p>You’ll receive confirmation of the service, price and any call-out fee if applicable.</p></div>
+        <div class="why-item"><div class="why-icon"><i class="fas fa-calendar-check"></i></div><h3>Confirmed Slot</h3><p>Once confirmed, our team arrives on time ready to deliver exceptional results.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/logo2.jpeg" alt="On The Move ZA">
+          <p>Professional cleaning, packing, moving and home setup services. From packed to perfectly placed.</p>
+        </div>
+        <div><h4>Quick Links</h4><ul><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="partners.html">Estate Partners</a></li></ul></div>
+        <div><h4>Services</h4><ul><li><a href="services.html">Deep Cleaning</a></li><li><a href="services.html">Move In/Out</a></li><li><a href="services.html">Weekly Maid</a></li><li><a href="services.html">Carpet &amp; Upholstery</a></li></ul></div>
+        <div><h4>Contact</h4><ul><li><i class="fas fa-phone"></i> 074 353 8569</li><li><i class="fab fa-whatsapp"></i> 074 353 8569</li><li><i class="fas fa-envelope"></i> onthemovezao@gmail.com</li><li><i class="fas fa-map-marker-alt"></i> Johannesburg, Pretoria and surrounding</li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 On The Move ZA. All rights reserved. | From Packed to Perfectly Placed</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/27743538569" class="whatsapp-float" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <script src="js/main.js"></script>
+  
+  <script>
+    // --- MULTI-SELECT DROPDOWN LOGIC ---
+    const dropdown = document.getElementById('service-dropdown');
+    const displayText = document.getElementById('service-display-text');
+    const checkboxes = document.querySelectorAll('.svc-checkbox');
+
+    function toggleDropdown() {
+      dropdown.classList.toggle('open');
+    }
+
+    function closeDropdown() {
+      dropdown.classList.remove('open');
+      updateDisplayText();
+    }
+
+    // Close dropdown if clicking outside
+    document.addEventListener('click', function(event) {
+      const container = document.getElementById('service-multi-select');
+      if (!container.contains(event.target)) {
+        closeDropdown();
+      }
+    });
+
+    function updateDisplayText() {
+      const selected = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+      
+      if (selected.length === 0) {
+        displayText.textContent = 'Select services...';
+        displayText.className = 'placeholder';
+      } else if (selected.length <= 2) {
+        displayText.textContent = selected.join(', ');
+        displayText.className = 'selected-text';
+      } else {
+        displayText.textContent = `${selected.length} services selected`;
+        displayText.className = 'selected-text';
+      }
+    }
+
+    // Update text when checkboxes change
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', updateDisplayText);
+    });
+
+    // --- FORM SUBMISSION (WHATSAPP) ---
+    document.getElementById('booking-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const selectedServices = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+      
+      if (selectedServices.length === 0) {
+        alert('Please select at least one service.');
+        return;
+      }
+
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const property = document.getElementById('property').value || 'Not specified';
+      const date = document.getElementById('date').value || 'Not specified';
+      const address = document.getElementById('address').value || 'Not specified';
+      const message = document.getElementById('message').value || 'None';
+
+      // Construct WhatsApp Message
+      let waMessage = `*NEW BOOKING REQUEST*\n\n`;
+      waMessage += `*Name:* ${name}\n`;
+      waMessage += `*Phone:* ${phone}\n`;
+      waMessage += `*Services:* ${selectedServices.join(', ')}\n`;
+      waMessage += `*Property:* ${property}\n`;
+      waMessage += `*Preferred Date:* ${date}\n`;
+      waMessage += `*Suburb/Area:* ${address}\n`;
+      waMessage += `*Additional Details:* ${message}\n`;
+
+      const whatsappNumber = '27743538569'; // Your number
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(waMessage)}`;
+      
+      window.open(whatsappUrl, '_blank');
+    });
+  </script>
+</body>
+</html>
