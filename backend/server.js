@@ -212,6 +212,11 @@ app.put('/api/settings', authenticateToken, (req, res) => {
   res.json(db.settings);
 });
 
+// Health Check for Render
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', time: new Date().toISOString() });
+});
+
 // Fallback for website (must be last)
 app.get('*', (req, res) => {
   if (req.path.startsWith('/api/')) {
