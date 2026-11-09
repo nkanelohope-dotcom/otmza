@@ -137,61 +137,6 @@
       "active": true,
       "order": 4,
       "image": null
-    },
-    {
-      "id": "srv-13",
-      "name": "Packing & Wrapping",
-      "shortDescription": "Professional packing and wrapping of belongings with care and quality materials.",
-      "description": "",
-      "category": "packing",
-      "features": [],
-      "active": true,
-      "order": 1,
-      "image": null
-    },
-    {
-      "id": "srv-14",
-      "name": "Moving & Transportation",
-      "shortDescription": "Coordinated moving services so your relocation is efficient and secure.",
-      "description": "",
-      "category": "packing",
-      "features": [],
-      "active": true,
-      "order": 2,
-      "image": null
-    },
-    {
-      "id": "srv-15",
-      "name": "Unpacking & Home Setup",
-      "shortDescription": "Unpack and set up your new home so you can settle in without the stress.",
-      "description": "",
-      "category": "packing",
-      "features": [],
-      "active": true,
-      "order": 3,
-      "image": null
-    },
-    {
-      "id": "srv-16",
-      "name": "Office Cleaning",
-      "shortDescription": "Daily or scheduled office cleaning for productive, professional workspaces.",
-      "description": "",
-      "category": "packing",
-      "features": [],
-      "active": true,
-      "order": 4,
-      "image": null
-    },
-    {
-      "id": "srv-17",
-      "name": "Post-Construction Cleaning",
-      "shortDescription": "After-building cleaning to remove dust, debris and prepare new spaces.",
-      "description": "",
-      "category": "packing",
-      "features": [],
-      "active": true,
-      "order": 5,
-      "image": null
     }
   ],
   "pricing": [
@@ -723,7 +668,7 @@
       "serviceId": "srv-12",
       "label": "10–30 guests",
       "price": 1500,
-      "unit": "from",
+      "unit": "per event",
       "notes": ""
     },
     {
@@ -732,7 +677,7 @@
       "serviceId": "srv-12",
       "label": "40–60 guests",
       "price": 2000,
-      "unit": "from",
+      "unit": "per event",
       "notes": ""
     },
     {
@@ -741,7 +686,7 @@
       "serviceId": "srv-12",
       "label": "70+ guests",
       "price": 3500,
-      "unit": "from",
+      "unit": "per event",
       "notes": ""
     }
   ],
