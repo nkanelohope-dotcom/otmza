@@ -44,7 +44,7 @@
     </div>
   </section>
 
-  <!-- Residential & Commercial Cleaning (DYNAMIC) -->
+  <!-- Cleaning Services -->
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -52,13 +52,16 @@
         <div class="underline"></div>
       </div>
       <div class="services-grid" id="live-services-cleaning">
-        <!-- Fallback content (will be replaced by JS) -->
-        <p style="text-align:center; grid-column: 1/-1; color: #666;">Loading cleaning services...</p>
+        <!-- Fallback -->
+        <div class="service-card">
+          <div class="card-img"><img src="images/logo.jpeg" alt="Loading..."></div>
+          <div class="card-body"><h3>Loading...</h3></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Specialised Cleaning (DYNAMIC) -->
+  <!-- Specialised -->
   <section class="section section-alt">
     <div class="container">
       <div class="section-header">
@@ -66,13 +69,16 @@
         <div class="underline"></div>
       </div>
       <div class="services-grid" id="live-services-specialised">
-        <!-- Fallback content (will be replaced by JS) -->
-        <p style="text-align:center; grid-column: 1/-1; color: #666;">Loading specialised services...</p>
+        <!-- Fallback -->
+        <div class="service-card">
+          <div class="card-img"><img src="images/logo.jpeg" alt="Loading..."></div>
+          <div class="card-body"><h3>Loading...</h3></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Moving & Packing (STATIC - NOT IN DATABASE) -->
+  <!-- Moving & Packing -->
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -80,32 +86,17 @@
         <div class="underline"></div>
         <p>Complete property transition support</p>
       </div>
-      <div class="why-grid">
-        <div class="why-item">
-          <div class="why-icon"><i class="fas fa-box-open"></i></div>
-          <h3>Packing &amp; Wrapping</h3>
-          <p>Professional packing and wrapping of belongings with care and quality materials.</p>
-        </div>
-        <div class="why-item">
-          <div class="why-icon"><i class="fas fa-truck-moving"></i></div>
-          <h3>Moving &amp; Transportation</h3>
-          <p>Coordinated moving services so your relocation is efficient and secure.</p>
-        </div>
-        <div class="why-item">
-          <div class="why-icon"><i class="fas fa-couch"></i></div>
-          <h3>Unpacking &amp; Home Setup</h3>
-          <p>Unpack and set up your new home so you can settle in without the stress.</p>
-        </div>
-        <div class="why-item">
-          <div class="why-icon"><i class="fas fa-key"></i></div>
-          <h3>Move In / Move Out</h3>
-          <p>Deep cleaning timed perfectly with property handovers for agents and landlords.</p>
+      <div class="services-grid" id="live-services-packing">
+        <!-- Fallback -->
+        <div class="service-card">
+          <div class="card-img"><img src="images/logo.jpeg" alt="Loading..."></div>
+          <div class="card-body"><h3>Loading...</h3></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Additional Services (STATIC - NOT IN DATABASE) -->
+  <!-- Other / Additional (Static) -->
   <section class="section section-alt">
     <div class="container">
       <div class="section-header">
@@ -168,7 +159,7 @@
         <div>
           <h4>Contact</h4>
           <ul>
-            <li><i class="fas fa-phone"></i> 074 353 8569 / 061 179 5499</li>
+            <li><i class="fas fa-phone"></i> 074 353 8569 </li>
             <li><i class="fab fa-whatsapp"></i> 074 353 8569</li>
             <li><i class="fas fa-envelope"></i> onthemovezao@gmail.com</li>
             <li><i class="fas fa-map-marker-alt"></i> Johannesburg, Pretoria and surrounding</li>
@@ -186,20 +177,32 @@
   </a>
 
   <script src="js/main.js"></script>
-  
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
+    async function loadLiveServices() {
       try {
-        const response = await fetch('/api/services');
-        if (!response.ok) throw new Error('Network response was not ok');
-        const services = await response.json();
+        const [svcRes, priceRes] = await Promise.all([
+          fetch('/api/services'),
+          fetch('/api/pricing')
+        ]);
+        
+        if (!svcRes.ok || !priceRes.ok) return; // Keep fallback
+        
+        const services = await svcRes.json();
+        const pricing = await priceRes.json();
 
-        // If database is empty, keep the fallback text
-        if (services.length === 0) return;
+        if (services.length === 0) return; // Keep fallback if empty
 
-        // Helper to generate card HTML
         const generateCard = (svc) => {
-          const imgUrl = svc.image ? svc.image : 'images/logo.jpeg'; // Use logo if no image
+          const imgUrl = svc.image ? svc.image : 'images/logo.jpeg';
+          
+          // Find the lowest price for this service from the pricing table
+          const svcPrices = pricing.filter(p => p.serviceId === svc.id).map(p => Number(p.price));
+          let priceDisplay = 'Price on request';
+          if (svcPrices.length > 0) {
+            const minPrice = Math.min(...svcPrices);
+            priceDisplay = `From R${minPrice.toLocaleString()}`;
+          }
+
           return `
             <div class="service-card">
               <div class="card-img">
@@ -208,34 +211,37 @@
               <div class="card-body">
                 <h3>${svc.name}</h3>
                 <p>${svc.shortDescription || svc.description}</p>
-                <a href="pricing.html" class="card-link">View pricing &rarr;</a>
+                <div class="price-from">${priceDisplay}</div>
+                <a href="pricing.html" class="card-link">Full details &rarr;</a>
               </div>
             </div>
           `;
         };
 
-        // Filter services by category (only cleaning and specialised exist in DB now)
         const cleaningSvcs = services.filter(s => s.category === 'cleaning');
         const specialisedSvcs = services.filter(s => s.category === 'specialised');
+        const packingSvcs = services.filter(s => s.category === 'packing');
 
-        // Update DOM if the category has items
         if (cleaningSvcs.length > 0) {
           document.getElementById('live-services-cleaning').innerHTML = cleaningSvcs.map(generateCard).join('');
-        } else {
-          document.getElementById('live-services-cleaning').innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: #666;">No cleaning services added yet.</p>';
         }
-        
         if (specialisedSvcs.length > 0) {
           document.getElementById('live-services-specialised').innerHTML = specialisedSvcs.map(generateCard).join('');
-        } else {
-          document.getElementById('live-services-specialised').innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: #666;">No specialised services added yet.</p>';
+        }
+        if (packingSvcs.length > 0) {
+          document.getElementById('live-services-packing').innerHTML = packingSvcs.map(generateCard).join('');
         }
 
       } catch (error) {
         console.error('Error loading services:', error);
-        // Fallback content remains visible if fetch fails
       }
-    });
+    }
+
+    // Initial load
+    document.addEventListener('DOMContentLoaded', loadLiveServices);
+
+    // AUTO-REFRESH: Poll the backend every 10 seconds to update live
+    setInterval(loadLiveServices, 10000);
   </script>
 </body>
 </html>
