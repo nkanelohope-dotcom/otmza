@@ -665,16 +665,15 @@ function openCropperModal() {
   
   if (cropper) cropper.destroy();
   
-  // Set aspect ratio based on what we are cropping
-  let aspectRatio = NaN;
-  if (currentCropType === 'service') aspectRatio = 16 / 9; // Landscape for services
-  if (currentCropType === 'gallery') aspectRatio = 1; // Square for gallery
-
   cropper = new Cropper(image, {
-    aspectRatio: aspectRatio,
+    aspectRatio: NaN, // This unlocks the box so you can drag it freely in all directions
     viewMode: 1,
     background: false,
-    autoCropArea: 0.9,
+    autoCropArea: 0.8,
+    dragMode: 'move', // Lets you drag the image around
+    cropBoxMovable: true, // Lets you move the crop box
+    cropBoxResizable: true, // Lets you resize the crop box from any corner
+    toggleDragModeOnDblclick: false
   });
 }
 
