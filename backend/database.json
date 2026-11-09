@@ -1,0 +1,675 @@
+{
+  "services": [
+    {
+      "id": "1793886503057",
+      "name": "ythgjenmdsa",
+      "shortDescription": "sacgxvzn ",
+      "description": "ascghxzbn ",
+      "category": "cleaning",
+      "features": [],
+      "active": true,
+      "order": 1,
+      "image": null
+    },
+    {
+      "id": "1793886529898",
+      "name": "w",
+      "shortDescription": "gafsxcz",
+      "description": "",
+      "category": "cleaning",
+      "features": [],
+      "active": true,
+      "order": 2,
+      "image": null
+    },
+    {
+      "id": "1793894702933",
+      "name": "asdxc",
+      "shortDescription": "",
+      "description": "",
+      "category": "cleaning",
+      "features": [],
+      "active": true,
+      "order": 3,
+      "image": "/uploads/services/1793894702926-carpet.jpeg"
+    }
+  ],
+  "pricing": [
+    {
+      "id": "17941294502920",
+      "category": "standard",
+      "serviceId": "Standard Apartment Cleaning",
+      "label": "Bachelor / Studio – 1 Bedroom",
+      "price": 300,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502921",
+      "category": "standard",
+      "serviceId": "Standard Apartment Cleaning",
+      "label": "2 Bedroom Apartment",
+      "price": 350,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502922",
+      "category": "standard",
+      "serviceId": "Standard Apartment Cleaning",
+      "label": "3 Bedroom Apartment",
+      "price": 450,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502923",
+      "category": "standard",
+      "serviceId": "Standard House Cleaning",
+      "label": "2 Bedroom House",
+      "price": 450,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502924",
+      "category": "standard",
+      "serviceId": "Standard House Cleaning",
+      "label": "3 Bedroom House",
+      "price": 550,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502925",
+      "category": "standard",
+      "serviceId": "Standard House Cleaning",
+      "label": "4 Bedroom House",
+      "price": 700,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502926",
+      "category": "standard",
+      "serviceId": "Standard House Cleaning",
+      "label": "5 Bedroom House",
+      "price": 900,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502927",
+      "category": "spring",
+      "serviceId": "Apartment Spring Cleaning",
+      "label": "Bachelor / Studio – 1 Bedroom",
+      "price": 600,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502928",
+      "category": "spring",
+      "serviceId": "Apartment Spring Cleaning",
+      "label": "2 Bedroom Apartment",
+      "price": 700,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "17941294502929",
+      "category": "spring",
+      "serviceId": "Apartment Spring Cleaning",
+      "label": "3 Bedroom Apartment",
+      "price": 900,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029210",
+      "category": "deep",
+      "serviceId": "Apartment Deep Cleaning",
+      "label": "Bachelor / Studio – 1 Bedroom",
+      "price": 1500,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029211",
+      "category": "deep",
+      "serviceId": "Apartment Deep Cleaning",
+      "label": "2 Bedroom Apartment",
+      "price": 2000,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029212",
+      "category": "deep",
+      "serviceId": "Apartment Deep Cleaning",
+      "label": "3 Bedroom Apartment",
+      "price": 2500,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029213",
+      "category": "deep",
+      "serviceId": "House Deep Cleaning (Occupied)",
+      "label": "2 Bedroom House",
+      "price": 3300,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029214",
+      "category": "deep",
+      "serviceId": "House Deep Cleaning (Occupied)",
+      "label": "3 Bedroom House",
+      "price": 3900,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029215",
+      "category": "deep",
+      "serviceId": "House Deep Cleaning (Occupied)",
+      "label": "4 Bedroom House",
+      "price": 4500,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029216",
+      "category": "deep",
+      "serviceId": "House Deep Cleaning (Occupied)",
+      "label": "5 Bedroom House",
+      "price": 5100,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029217",
+      "category": "moveout",
+      "serviceId": "Empty Apartment Deep Cleaning",
+      "label": "Bachelor / Studio – 1 Bedroom",
+      "price": 1100,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029218",
+      "category": "moveout",
+      "serviceId": "Empty Apartment Deep Cleaning",
+      "label": "2 Bedroom Apartment",
+      "price": 1300,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029219",
+      "category": "moveout",
+      "serviceId": "Empty Apartment Deep Cleaning",
+      "label": "3 Bedroom Apartment",
+      "price": 1500,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029220",
+      "category": "moveout",
+      "serviceId": "Empty House Deep Cleaning",
+      "label": "2 Bedroom House",
+      "price": 2200,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029221",
+      "category": "moveout",
+      "serviceId": "Empty House Deep Cleaning",
+      "label": "3 Bedroom House",
+      "price": 3200,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029222",
+      "category": "moveout",
+      "serviceId": "Empty House Deep Cleaning",
+      "label": "4 Bedroom House",
+      "price": 4200,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029223",
+      "category": "moveout",
+      "serviceId": "Empty House Deep Cleaning",
+      "label": "5 Bedroom House",
+      "price": 5200,
+      "unit": "per clean",
+      "notes": ""
+    },
+    {
+      "id": "179412945029224",
+      "category": "weekly",
+      "serviceId": "Weekly Maid (Incl. Laundry & Ironing)",
+      "label": "Bachelor / Studio – 1 Bedroom",
+      "price": 350,
+      "unit": "per week",
+      "notes": ""
+    },
+    {
+      "id": "179412945029225",
+      "category": "weekly",
+      "serviceId": "Weekly Maid (Incl. Laundry & Ironing)",
+      "label": "2 Bedroom Apartment",
+      "price": 400,
+      "unit": "per week",
+      "notes": ""
+    },
+    {
+      "id": "179412945029226",
+      "category": "weekly",
+      "serviceId": "Weekly Maid (Incl. Laundry & Ironing)",
+      "label": "3 Bedroom Apartment",
+      "price": 450,
+      "unit": "per week",
+      "notes": ""
+    },
+    {
+      "id": "179412945029227",
+      "category": "weekly",
+      "serviceId": "Cleaning Only (Once a Week)",
+      "label": "Bachelor / Studio – 1 Bedroom",
+      "price": 250,
+      "unit": "per week",
+      "notes": ""
+    },
+    {
+      "id": "179412945029228",
+      "category": "weekly",
+      "serviceId": "Cleaning Only (Once a Week)",
+      "label": "2 Bedroom Apartment",
+      "price": 300,
+      "unit": "per week",
+      "notes": ""
+    },
+    {
+      "id": "179412945029229",
+      "category": "weekly",
+      "serviceId": "Cleaning Only (Once a Week)",
+      "label": "3 Bedroom Apartment",
+      "price": 350,
+      "unit": "per week",
+      "notes": ""
+    },
+    {
+      "id": "179412945029230",
+      "category": "upholstery",
+      "serviceId": "Rugs & Carpet Deep Cleaning",
+      "label": "Extra Small Rug",
+      "price": 250,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029231",
+      "category": "upholstery",
+      "serviceId": "Rugs & Carpet Deep Cleaning",
+      "label": "Small Rug",
+      "price": 300,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029232",
+      "category": "upholstery",
+      "serviceId": "Rugs & Carpet Deep Cleaning",
+      "label": "Medium Rug",
+      "price": 350,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029233",
+      "category": "upholstery",
+      "serviceId": "Rugs & Carpet Deep Cleaning",
+      "label": "Large Rug",
+      "price": 400,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029234",
+      "category": "upholstery",
+      "serviceId": "Rugs & Carpet Deep Cleaning",
+      "label": "XLarge Rug",
+      "price": 450,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029235",
+      "category": "upholstery",
+      "serviceId": "Rugs & Carpet Deep Cleaning",
+      "label": "Fitted Carpet – Standard Room",
+      "price": 500,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029236",
+      "category": "upholstery",
+      "serviceId": "Couch Deep Cleaning",
+      "label": "1 Seater",
+      "price": 250,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029237",
+      "category": "upholstery",
+      "serviceId": "Couch Deep Cleaning",
+      "label": "2 Seater",
+      "price": 450,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029238",
+      "category": "upholstery",
+      "serviceId": "Couch Deep Cleaning",
+      "label": "3 Seater",
+      "price": 550,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029239",
+      "category": "upholstery",
+      "serviceId": "Couch Deep Cleaning",
+      "label": "4 Seater",
+      "price": 650,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029240",
+      "category": "upholstery",
+      "serviceId": "Couch Deep Cleaning",
+      "label": "5 Seater",
+      "price": 700,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029241",
+      "category": "upholstery",
+      "serviceId": "Couch Deep Cleaning",
+      "label": "6 Seater",
+      "price": 800,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029242",
+      "category": "upholstery",
+      "serviceId": "L-Couch Deep Cleaning",
+      "label": "3 Seater",
+      "price": 600,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029243",
+      "category": "upholstery",
+      "serviceId": "L-Couch Deep Cleaning",
+      "label": "4 Seater",
+      "price": 700,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029244",
+      "category": "upholstery",
+      "serviceId": "L-Couch Deep Cleaning",
+      "label": "5 Seater",
+      "price": 800,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029245",
+      "category": "upholstery",
+      "serviceId": "L-Couch Deep Cleaning",
+      "label": "6 Seater",
+      "price": 900,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029246",
+      "category": "upholstery",
+      "serviceId": "Mattress Deep Cleaning",
+      "label": "Single Bed",
+      "price": 350,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029247",
+      "category": "upholstery",
+      "serviceId": "Mattress Deep Cleaning",
+      "label": "Double Bed",
+      "price": 500,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029248",
+      "category": "upholstery",
+      "serviceId": "Mattress Deep Cleaning",
+      "label": "Queen Bed",
+      "price": 550,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029249",
+      "category": "upholstery",
+      "serviceId": "Mattress Deep Cleaning",
+      "label": "King Bed",
+      "price": 600,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029250",
+      "category": "upholstery",
+      "serviceId": "Sleigh Bed Deep Cleaning",
+      "label": "Single",
+      "price": 400,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029251",
+      "category": "upholstery",
+      "serviceId": "Sleigh Bed Deep Cleaning",
+      "label": "Double",
+      "price": 450,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029252",
+      "category": "upholstery",
+      "serviceId": "Sleigh Bed Deep Cleaning",
+      "label": "Queen",
+      "price": 500,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029253",
+      "category": "upholstery",
+      "serviceId": "Sleigh Bed Deep Cleaning",
+      "label": "King",
+      "price": 550,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029254",
+      "category": "upholstery",
+      "serviceId": "Headboard Deep Cleaning",
+      "label": "Single",
+      "price": 200,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029255",
+      "category": "upholstery",
+      "serviceId": "Headboard Deep Cleaning",
+      "label": "Double",
+      "price": 250,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029256",
+      "category": "upholstery",
+      "serviceId": "Headboard Deep Cleaning",
+      "label": "Queen",
+      "price": 300,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029257",
+      "category": "upholstery",
+      "serviceId": "Headboard Deep Cleaning",
+      "label": "King",
+      "price": 350,
+      "unit": "per item",
+      "notes": ""
+    },
+    {
+      "id": "179412945029258",
+      "category": "events",
+      "serviceId": "Pre & Post Event Cleaning",
+      "label": "10–30 guests",
+      "price": 1500,
+      "unit": "from",
+      "notes": ""
+    },
+    {
+      "id": "179412945029259",
+      "category": "events",
+      "serviceId": "Pre & Post Event Cleaning",
+      "label": "40–60 guests",
+      "price": 2000,
+      "unit": "from",
+      "notes": ""
+    },
+    {
+      "id": "179412945029260",
+      "category": "events",
+      "serviceId": "Pre & Post Event Cleaning",
+      "label": "70+ guests",
+      "price": 3500,
+      "unit": "from",
+      "notes": ""
+    }
+  ],
+  "gallery": [
+    {
+      "id": "1793887344825",
+      "filename": "1793887344810-WhatsApp-Image-2026-11-04-at-10.44.18.jpeg",
+      "originalName": "WhatsApp Image 2026-11-04 at 10.44.18.jpeg",
+      "url": "/uploads/gallery/1793887344810-WhatsApp-Image-2026-11-04-at-10.44.18.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    },
+    {
+      "id": "1793895447812",
+      "filename": "1793895447802-image1.jpeg",
+      "originalName": "image1.jpeg",
+      "url": "/uploads/gallery/1793895447802-image1.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    },
+    {
+      "id": "1793895509076",
+      "filename": "1793895509073-image34.jpeg",
+      "originalName": "image34.jpeg",
+      "url": "/uploads/gallery/1793895509073-image34.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    },
+    {
+      "id": "1793895509091",
+      "filename": "1793895509085-image35.jpeg",
+      "originalName": "image35.jpeg",
+      "url": "/uploads/gallery/1793895509085-image35.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    },
+    {
+      "id": "1793895509102",
+      "filename": "1793895509099-image3.jpeg",
+      "originalName": "image3.jpeg",
+      "url": "/uploads/gallery/1793895509099-image3.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    },
+    {
+      "id": "1793895509111",
+      "filename": "1793895509108-image11.jpeg",
+      "originalName": "image11.jpeg",
+      "url": "/uploads/gallery/1793895509108-image11.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    },
+    {
+      "id": "1793895509118",
+      "filename": "1793895509116-image22.jpeg",
+      "originalName": "image22.jpeg",
+      "url": "/uploads/gallery/1793895509116-image22.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    },
+    {
+      "id": "1793895509127",
+      "filename": "1793895509124-image23.jpeg",
+      "originalName": "image23.jpeg",
+      "url": "/uploads/gallery/1793895509124-image23.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    },
+    {
+      "id": "1793895509134",
+      "filename": "1793895509131-image24.jpeg",
+      "originalName": "image24.jpeg",
+      "url": "/uploads/gallery/1793895509131-image24.jpeg",
+      "category": "cleaning",
+      "isLegacy": false
+    }
+  ],
+  "settings": {
+    "siteName": "",
+    "tagline": "",
+    "phone": "",
+    "phone2": "",
+    "whatsapp": "",
+    "email": "",
+    "instagram": "https://www.instagram.com/onthemove_sa?exln=MWVtdWlkdWpvMHdobg==",
+    "tiktok": "https://www.tiktok.com/@onthemove_za?_r=1&_t=ZS-9B9MYUmlFV1",
+    "facebook": "https://www.facebook.com/share/1EtRPZ6c1C/?mibextid=wwXIfr",
+    "areas": "",
+    "calloutFee": ""
+  }
+}
