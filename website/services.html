@@ -44,7 +44,7 @@
     </div>
   </section>
 
-  <!-- Residential & Commercial Cleaning -->
+  <!-- Residential & Commercial Cleaning (DYNAMIC) -->
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -57,7 +57,7 @@
     </div>
   </section>
 
-  <!-- Specialised Cleaning -->
+  <!-- Specialised Cleaning (DYNAMIC) -->
   <section class="section section-alt">
     <div class="container">
       <div class="section-header">
@@ -70,7 +70,7 @@
     </div>
   </section>
 
-  <!-- Moving & Packing (STATIC) -->
+  <!-- Packing, Moving & Home Setup (STATIC - MATCHING YOUR IMAGE) -->
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -222,7 +222,6 @@
           document.getElementById('live-services-cleaning').innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: #666;">No cleaning services added yet.</p>';
         }
         
-        // Use the SAME card design for specialised (this fixes the "Loading..." layout issue)
         if (specialisedSvcs.length > 0) {
           document.getElementById('live-services-specialised').innerHTML = specialisedSvcs.map(generateCard).join('');
         } else {
