@@ -375,34 +375,45 @@ tr:last-child td{border-bottom:none}
   </div>
 </div>
 
-<!-- SERVICE MODAL -->
+<!-- SERVICE MODAL (UPDATED: ONLY 4 FIELDS) -->
 <div class="mo" id="service-modal">
   <div class="md">
     <h2 id="service-modal-title"><i class="fas fa-broom" style="color:var(--primary-green);"></i> Add Service</h2>
     <form id="service-form">
       <input type="hidden" name="id">
-      <div class="fg"><label>Service Name *</label><input name="name" required placeholder="e.g. Pre & Post Event Cleaning"></div>
-      <div class="fg"><label>Short Description</label><input name="shortDescription" placeholder="One-line summary for cards"></div>
-      <div class="fg"><label>Full Description</label><textarea name="description" placeholder="Detailed description"></textarea></div>
-      <div class="two">
-        <div class="fg"><label>Website Category</label>
-          <select name="category">
-            <option value="cleaning">Residential & Commercial Cleaning</option>
-            <option value="specialised">Specialised Cleaning</option>
-          </select>
-        </div>
-        <div class="fg"><label>Display Order</label><input type="number" name="order" min="1" placeholder="e.g. 1"></div>
+      
+      <!-- 1. Service Name -->
+      <div class="fg">
+        <label>Service Name *</label>
+        <input name="name" required placeholder="e.g. Pre & Post Event Cleaning">
       </div>
-      <div class="fg"><label>Features (one per line)</label><textarea name="features" placeholder="Event preparation&#10;Full venue cleaning&#10;Dishwashing"></textarea></div>
-      <div class="fg"><label>Service Image</label>
+      
+      <!-- 2. Short Description -->
+      <div class="fg">
+        <label>Short Description</label>
+        <input name="shortDescription" placeholder="One-line summary for cards">
+      </div>
+      
+      <!-- 3. Website Category -->
+      <div class="fg">
+        <label>Website Category</label>
+        <select name="category">
+          <option value="cleaning">Residential & Commercial Cleaning</option>
+          <option value="specialised">Specialised Cleaning</option>
+        </select>
+      </div>
+
+      <!-- 4. Service Image -->
+      <div class="fg">
+        <label>Service Image</label>
         <input type="file" name="image" id="svc-image-input" accept="image/*">
-        <!-- Hidden input to hold the cropped image data -->
         <input type="hidden" name="cropped_image_data" id="svc-cropped-data">
         <img id="svc-img-preview" class="img-prev" alt="Preview">
       </div>
-      <div class="fg"><label>Status</label>
-        <select name="active"><option value="true">Active (Visible on site)</option><option value="false">Hidden (Draft)</option></select>
-      </div>
+      
+      <!-- Hidden Status -->
+      <input type="hidden" name="active" value="true">
+
       <div class="ma">
         <button type="button" class="btn btn-secondary" onclick="closeModal('service-modal')">Cancel</button>
         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Service</button>
@@ -471,7 +482,7 @@ let servicesCache=[];
 
 // Cropper Variables
 let cropper = null;
-let currentCropType = null; // 'service' or 'gallery'
+let currentCropType = null;
 let currentCropCallback = null;
 
 // Sidebar Toggle Logic
@@ -608,9 +619,7 @@ function filterServices(){
 function openServiceModal(s=null){
   const f=document.getElementById('service-form');f.reset();
   document.getElementById('svc-img-preview').classList.remove('show');
-  document.getElementById('svc-cropped-data').value = ''; // Clear cropped data
-  
-  // Reset file input
+  document.getElementById('svc-cropped-data').value = ''; 
   const fileInput = document.getElementById('svc-image-input');
   fileInput.value = '';
 
@@ -618,9 +627,7 @@ function openServiceModal(s=null){
   
   if(s){
     f.id.value=s.id;f.name.value=s.name||'';f.shortDescription.value=s.shortDescription||'';
-    f.description.value=s.description||'';f.category.value=s.category||'cleaning';
-    f.features.value=(s.features||[]).join('\n');
-    f.active.value=s.active!==false?'true':'false';f.order.value=s.order||'';
+    f.category.value=s.category||'cleaning';
     if(s.image){
       const p=document.getElementById('svc-img-preview');
       p.src=s.image;
@@ -631,7 +638,6 @@ function openServiceModal(s=null){
 }
 function editService(s){openServiceModal(s)}
 
-// --- CROPPER LOGIC FOR SERVICES ---
 document.getElementById('svc-image-input').addEventListener('change', function(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -641,7 +647,6 @@ document.getElementById('svc-image-input').addEventListener('change', function(e
     const img = document.getElementById('image-to-crop');
     img.src = event.target.result;
     
-    // Set the callback to update the service form
     currentCropType = 'service';
     currentCropCallback = function(croppedDataUrl) {
       document.getElementById('svc-cropped-data').value = croppedDataUrl;
@@ -653,7 +658,7 @@ document.getElementById('svc-image-input').addEventListener('change', function(e
     openCropperModal();
   };
   reader.readAsDataURL(file);
-  this.value = ''; // Reset input so same file can be selected again if needed
+  this.value = ''; 
 });
 
 function openCropperModal() {
@@ -664,36 +669,28 @@ function openCropperModal() {
   if (cropper) cropper.destroy();
   
   cropper = new Cropper(image, {
-    aspectRatio: NaN, // This unlocks the box so you can drag it freely in all directions
+    aspectRatio: NaN, 
     viewMode: 1,
     background: false,
     autoCropArea: 0.8,
-    dragMode: 'move', // Lets you drag the image around
-    cropBoxMovable: true, // Lets you move the crop box
-    cropBoxResizable: true, // Lets you resize the crop box from any corner
+    dragMode: 'move', 
+    cropBoxMovable: true, 
+    cropBoxResizable: true, 
     toggleDragModeOnDblclick: false
   });
 }
 
 function confirmCrop() {
   if (!cropper) return;
-  
-  // Get the cropped canvas
   const canvas = cropper.getCroppedCanvas({
     maxWidth: 1024,
     maxHeight: 1024,
-    fillColor: '#2d6a4f', // Match the green background
+    fillColor: '#2d6a4f',
   });
-  
-  if (!canvas) {
-    alert('Could not crop image.');
-    return;
-  }
-  
+  if (!canvas) { alert('Could not crop image.'); return; }
   const croppedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
   if (currentCropCallback) currentCropCallback(croppedDataUrl);
-  
-  cancelCrop(); // Close and clean up
+  cancelCrop(); 
 }
 
 function cancelCrop() {
@@ -707,25 +704,21 @@ function cancelCrop() {
   currentCropType = null;
 }
 
-// --- SAVE SERVICE (WITH CROPPED DATA) ---
+// --- UPDATED SAVE SERVICE (ONLY 4 FIELDS) ---
 document.getElementById('service-form').addEventListener('submit',async e=>{
   e.preventDefault();const f=e.target;const id=f.id.value;
   
   const fd=new FormData();
-  fd.append('name',f.name.value);fd.append('shortDescription',f.shortDescription.value);
-  fd.append('description',f.description.value);fd.append('category',f.category.value);
-  fd.append('active',f.active.value);
-  if(f.order.value)fd.append('order',f.order.value);
-  fd.append('features',JSON.stringify(f.features.value.split('\n').map(x=>x.trim()).filter(Boolean)));
+  fd.append('name',f.name.value);
+  fd.append('shortDescription',f.shortDescription.value);
+  fd.append('category',f.category.value);
+  fd.append('active', 'true'); 
   
-  // Check if we have a cropped image or a new file upload
   const croppedData = document.getElementById('svc-cropped-data').value;
   if (croppedData) {
-    // Convert base64 to Blob and append
     const blob = await (await fetch(croppedData)).blob();
     fd.append('image', blob, 'cropped-service.jpg');
   } else if (f.image.files[0]) {
-    // Fallback if they somehow bypassed the cropper
     fd.append('image', f.image.files[0]);
   }
 
@@ -840,8 +833,6 @@ galleryUploadZone.addEventListener('dragleave',()=>galleryUploadZone.classList.r
 galleryUploadZone.addEventListener('drop',e=>{e.preventDefault();galleryUploadZone.classList.remove('over');addGalleryFiles(e.dataTransfer.files)});
 galleryFileInput.addEventListener('change',()=>{addGalleryFiles(galleryFileInput.files);galleryFileInput.value=''});
 
-// --- CROPPER LOGIC FOR GALLERY ---
-// Intercept file addition if it's an image, send to cropper
 async function addGalleryFiles(fileList){
   const allowed=/\.(jpe?g|png|gif|webp|mp4|webm)$/i;
   
@@ -849,7 +840,6 @@ async function addGalleryFiles(fileList){
     if(!allowed.test(file.name)){alert(file.name+': unsupported file type.');continue}
     if(file.size>15*1024*1024){alert(file.name+': exceeds the 15 MB limit.');continue}
     
-    // If it's an image, open cropper
     if (/\.(jpe?g|png|gif|webp)$/i.test(file.name)) {
       await new Promise((resolve) => {
         const reader = new FileReader();
@@ -857,7 +847,6 @@ async function addGalleryFiles(fileList){
           document.getElementById('image-to-crop').src = event.target.result;
           currentCropType = 'gallery';
           currentCropCallback = function(croppedDataUrl) {
-            // Convert base64 to file object and add to queue
             fetch(croppedDataUrl).then(res => res.blob()).then(blob => {
               const croppedFile = new File([blob], `cropped-${file.name}`, {type: 'image/jpeg'});
               selectedGalleryFiles.push(croppedFile);
@@ -870,7 +859,6 @@ async function addGalleryFiles(fileList){
         reader.readAsDataURL(file);
       });
     } else {
-      // It's a video, just add it
       selectedGalleryFiles.push(file);
       renderGalleryPreviews();
     }
